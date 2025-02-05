@@ -13,12 +13,12 @@ class Photo:
 		self.__widget_by_propierty['Path'] = None
 		self.__Path = ""
 		self.__Path_value = ""
-		self.__json_content_by_propierty['LocationAccuracy2D'] = {'text': {'spanish': 'Precision 2D de OE', 'english': '2D accuracy of EO'}, 'definition': {'spanish': 'Precision horizontal de la orientacion externa de las imagenes en metros', 'english': 'Horizontal accuracy of external orientation of images in meters'}, 'type': 'real', 'decimals': 3, 'minimum': 0.0, 'maximum': 5.0, 'singleStep': 0.01, 'default': 0.08}
+		self.__json_content_by_propierty['LocationAccuracy2D'] = {'text': {'spanish': 'Precision 2D de OE', 'english': '2D accuracy of EO'}, 'definition': {'spanish': 'Precision horizontal de la orientacion externa de las imagenes en metros', 'english': 'Horizontal accuracy of external orientation of images in meters'}, 'type': 'real', 'decimals': 3, 'minimum': 0.0, 'maximum': 10.0, 'singleStep': 0.01, 'default': 0.08}
 		self.__text_by_propierty['LocationAccuracy2D'] = 'Precision 2D de OE'
 		self.__widget_by_propierty['LocationAccuracy2D'] = None
 		self.__LocationAccuracy2D = 0.08
 		self.__LocationAccuracy2D_value = 0.08
-		self.__json_content_by_propierty['LocationAccuracyHeight'] = {'text': {'spanish': 'Precision Z de OE', 'english': 'Z accuracy of EO'}, 'definition': {'spanish': 'Precision vertical de la orientacion externa de las imagenes en metros', 'english': 'Vertical accuracy of the external orientation of images in meters'}, 'type': 'real', 'decimals': 3, 'minimum': 0.0, 'maximum': 5.0, 'singleStep': 0.01, 'default': 0.12}
+		self.__json_content_by_propierty['LocationAccuracyHeight'] = {'text': {'spanish': 'Precision Z de OE', 'english': 'Z accuracy of EO'}, 'definition': {'spanish': 'Precision vertical de la orientacion externa de las imagenes en metros', 'english': 'Vertical accuracy of the external orientation of images in meters'}, 'type': 'real', 'decimals': 3, 'minimum': 0.0, 'maximum': 10.0, 'singleStep': 0.01, 'default': 0.12}
 		self.__text_by_propierty['LocationAccuracyHeight'] = 'Precision Z de OE'
 		self.__widget_by_propierty['LocationAccuracyHeight'] = None
 		self.__LocationAccuracyHeight = 0.12
@@ -94,7 +94,7 @@ class Photo:
 		return self.__LocationAccuracy2D
 
 	@LocationAccuracy2D.setter
-	def LocationAccuracy2D(self, value: 'widget:QDoubleSpinBox, decimals:3, minimum:0.0, maximum:5.0, singleStep:0.01, toolTip:Precision horizontal de la orientacion externa de las imagenes en metros'):
+	def LocationAccuracy2D(self, value: 'widget:QDoubleSpinBox, decimals:3, minimum:0.0, maximum:10.0, singleStep:0.01, toolTip:Precision horizontal de la orientacion externa de las imagenes en metros'):
 		self.__LocationAccuracy2D = value
 
 	def set_LocationAccuracy2D_value(self):
@@ -115,7 +115,7 @@ class Photo:
 		return self.__LocationAccuracyHeight
 
 	@LocationAccuracyHeight.setter
-	def LocationAccuracyHeight(self, value: 'widget:QDoubleSpinBox, decimals:3, minimum:0.0, maximum:5.0, singleStep:0.01, toolTip:Precision vertical de la orientacion externa de las imagenes en metros'):
+	def LocationAccuracyHeight(self, value: 'widget:QDoubleSpinBox, decimals:3, minimum:0.0, maximum:10.0, singleStep:0.01, toolTip:Precision vertical de la orientacion externa de las imagenes en metros'):
 		self.__LocationAccuracyHeight = value
 
 	def set_LocationAccuracyHeight_value(self):

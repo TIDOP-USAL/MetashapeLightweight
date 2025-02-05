@@ -23,12 +23,12 @@ class Project:
 		self.__widget_by_propierty['Path'] = None
 		self.__Path = ""
 		self.__Path_value = ""
-		self.__json_content_by_propierty['DemGSD'] = {'text': {'spanish': 'GSD para MDT y MDS en metros', 'english': 'GSD for DTM and DSM in meters'}, 'definition': {'spanish': 'Resolucion en metros con la que se exportaran el modelo digital de superficies y del terreno (0 para maxima posible)', 'english': 'Resolution in metres at which the digital surface and terrain model will be exported (0 for maximum possible).'}, 'type': 'real', 'decimals': 2, 'minimum': 0.0, 'maximum': 2.0, 'singleStep': 0.01, 'default': 0.05}
+		self.__json_content_by_propierty['DemGSD'] = {'text': {'spanish': 'GSD para MDT y MDS en metros', 'english': 'GSD for DTM and DSM in meters'}, 'definition': {'spanish': 'Resolucion en metros con la que se exportaran el modelo digital de superficies y del terreno (0 para maxima posible)', 'english': 'Resolution in metres at which the digital surface and terrain model will be exported (0 for maximum possible).'}, 'type': 'real', 'decimals': 3, 'minimum': 0.0, 'maximum': 2.0, 'singleStep': 0.01, 'default': 0.05}
 		self.__text_by_propierty['DemGSD'] = 'GSD para MDT y MDS en metros'
 		self.__widget_by_propierty['DemGSD'] = None
 		self.__DemGSD = 0.05
 		self.__DemGSD_value = 0.05
-		self.__json_content_by_propierty['OrthoGSD'] = {'text': {'spanish': 'GSD para ortomosaico en metros', 'english': 'GSD for Orthomosaic in meters'}, 'definition': {'spanish': 'Resolucion en metros con la que se exportara el ortomosaico (0 para maxima posible)', 'english': 'Resolution in metres at which the orthomosaic will be exported (0 for maximum possible)'}, 'type': 'real', 'decimals': 2, 'minimum': 0.0, 'maximum': 2.0, 'singleStep': 0.01, 'default': 0.05}
+		self.__json_content_by_propierty['OrthoGSD'] = {'text': {'spanish': 'GSD para ortomosaico en metros', 'english': 'GSD for Orthomosaic in meters'}, 'definition': {'spanish': 'Resolucion en metros con la que se exportara el ortomosaico (0 para maxima posible)', 'english': 'Resolution in metres at which the orthomosaic will be exported (0 for maximum possible)'}, 'type': 'real', 'decimals': 3, 'minimum': 0.0, 'maximum': 2.0, 'singleStep': 0.01, 'default': 0.05}
 		self.__text_by_propierty['OrthoGSD'] = 'GSD para ortomosaico en metros'
 		self.__widget_by_propierty['OrthoGSD'] = None
 		self.__OrthoGSD = 0.05
@@ -130,7 +130,7 @@ class Project:
 		return self.__DemGSD
 
 	@DemGSD.setter
-	def DemGSD(self, value: 'widget:QDoubleSpinBox, decimals:2, minimum:0.0, maximum:2.0, singleStep:0.01, toolTip:Resolucion en metros con la que se exportaran el modelo digital de superficies y del terreno (0 para maxima posible)'):
+	def DemGSD(self, value: 'widget:QDoubleSpinBox, decimals:3, minimum:0.0, maximum:2.0, singleStep:0.01, toolTip:Resolucion en metros con la que se exportaran el modelo digital de superficies y del terreno (0 para maxima posible)'):
 		self.__DemGSD = value
 
 	def set_DemGSD_value(self):
@@ -151,7 +151,7 @@ class Project:
 		return self.__OrthoGSD
 
 	@OrthoGSD.setter
-	def OrthoGSD(self, value: 'widget:QDoubleSpinBox, decimals:2, minimum:0.0, maximum:2.0, singleStep:0.01, toolTip:Resolucion en metros con la que se exportara el ortomosaico (0 para maxima posible)'):
+	def OrthoGSD(self, value: 'widget:QDoubleSpinBox, decimals:3, minimum:0.0, maximum:2.0, singleStep:0.01, toolTip:Resolucion en metros con la que se exportara el ortomosaico (0 para maxima posible)'):
 		self.__OrthoGSD = value
 
 	def set_OrthoGSD_value(self):

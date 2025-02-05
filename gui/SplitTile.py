@@ -8,7 +8,7 @@ class SplitTile:
 		self.__json_content_by_propierty = {}
 		self.__json_content_by_propierty['text'] = {'spanish': 'Division en celdas', 'english': 'Split tiles'}
 		self.__text = 'Division en celdas'
-		self.__json_content_by_propierty['TileSize'] = {'text': {'spanish': 'Tamanio de la celda', 'english': 'Tile Size'}, 'definition': {'spanish': 'Tamanio de las celdas en metros (ej. 50)', 'english': 'Tile size in meters (i.e. 50)'}, 'type': 'integer', 'minimum': 10, 'maximum': 1000, 'singleStep': 10, 'default': 50}
+		self.__json_content_by_propierty['TileSize'] = {'text': {'spanish': 'Tamanio de la celda', 'english': 'Tile Size'}, 'definition': {'spanish': 'Tamanio de las celdas en metros (ej. 50)', 'english': 'Tile size in meters (i.e. 50)'}, 'type': 'integer', 'minimum': 0, 'maximum': 1000, 'singleStep': 10, 'default': 50}
 		self.__text_by_propierty['TileSize'] = 'Tamanio de la celda'
 		self.__widget_by_propierty['TileSize'] = None
 		self.__TileSize = 50
@@ -23,7 +23,7 @@ class SplitTile:
 		self.__widget_by_propierty['Method'] = None
 		self.__Method = ['Malla editada por el usuario' ,'Automatico para toda la ROI o zona estereoscopica']
 		self.__Method_value = 'Malla editada por el usuario'
-		self.__json_content_by_propierty['Path'] = {'text': {'spanish': 'Fichero de la malla', 'english': 'Grid file'}, 'definition': {'spanish': 'Fichero de la malla editado por el usario', 'english': 'Grid file edited by user'}, 'type': 'file save', 'formats': '*.gpkg', 'default': ''}
+		self.__json_content_by_propierty['Path'] = {'text': {'spanish': 'Fichero de la malla', 'english': 'Grid file'}, 'definition': {'spanish': 'Fichero de la malla editado por el usario', 'english': 'Grid file edited by user'}, 'type': 'file open', 'formats': '*.gpkg', 'default': ''}
 		self.__text_by_propierty['Path'] = 'Fichero de la malla'
 		self.__widget_by_propierty['Path'] = None
 		self.__Path = ""
@@ -91,7 +91,7 @@ class SplitTile:
 		return self.__TileSize
 
 	@TileSize.setter
-	def TileSize(self, value: 'widget:QSpinBox, minimum:10, maximum:1000, singleStep:10, toolTip:Tamanio de las celdas en metros (ej. 50)'):
+	def TileSize(self, value: 'widget:QSpinBox, minimum:0, maximum:1000, singleStep:10, toolTip:Tamanio de las celdas en metros (ej. 50)'):
 		self.__TileSize = value
 
 	def set_TileSize_value(self):
@@ -154,7 +154,7 @@ class SplitTile:
 		return self.__Path
 
 	@Path.setter
-	def Path(self, value: 'widget:file, type:save, toolTip:Fichero de la malla editado por el usario, filters: *.gpkg'):
+	def Path(self, value: 'widget:file, toolTip:Fichero de la malla editado por el usario, filters: *.gpkg'):
 		self.__Path = value
 
 	def set_Path_value(self):
