@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SampleDialog</class>
+ <widget class="QDialog" name="SampleDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>406</width>
+    <height>174</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>__title__</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+      <layout class="QFormLayout" name="formLayout">
+        __content__
+      </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>reject()</slot>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>accept()</slot>
+  </connection>
+  __connections__
+ </connections>
+  <slots>
+    <slot>listAddButtonClicked()</slot>
+    <slot>fileWidgetButtonClicked()</slot>
+    <slot>imageWidgetRemoveButtonClicked()</slot>
+    <slot>imageWidgetChangeButtonClicked()</slot>
+    <slot>imagesWidgetChangeDirectoryButtonClicked()</slot>
+    <slot>listDeleteButtonClicked()</slot>
+    <slot>objectDetailButtonClicked()</slot>
+    <slot>tableAddButtonClicked()</slot>
+    <slot>tableDeleteButtonClicked()</slot>
+    <slot>simpleGridFirstPageButtonClicked()</slot>
+    <slot>simpleGridPreviousPageButtonClicked()</slot>
+    <slot>simpleGridNextPageButtonClicked()</slot>
+    <slot>simpleGridLastPageButtonClicked()</slot>
+    <slot>simpleGridPageCountComboChanged()</slot>
+
+
+ </slots>
+</ui>

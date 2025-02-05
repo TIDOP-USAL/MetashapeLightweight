@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SampleDialog</class>
+ <widget class="QDialog" name="SampleDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>406</width>
+    <height>174</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Workflow</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+      <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+     <widget class="QLabel" name="label_CleanPrevious">
+          <property name="text">
+          <string>Cleanprevious:</string>
+          </property>
+     </widget>
+     </item>
+<item row="0" column="1">
+     
+     <widget class="QCheckBox" name="CleanPrevious">
+          <property name="field_name" stdset="0">
+               <string>CleanPrevious</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Proceso que ejecuta la limpieza del trabajo anterior</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="1" column="0">
+     <widget class="QLabel" name="label_Initialize">
+          <property name="text">
+          <string>Initialize:</string>
+          </property>
+     </widget>
+     </item>
+<item row="1" column="1">
+     
+     <widget class="QCheckBox" name="Initialize">
+          <property name="field_name" stdset="0">
+               <string>Initialize</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Proceso que ejecuta la creacion del proyecto e importacion de los datos de entrada</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="2" column="0">
+     <widget class="QLabel" name="label_Preprocess">
+          <property name="text">
+          <string>Preprocess:</string>
+          </property>
+     </widget>
+     </item>
+<item row="2" column="1">
+     
+     <widget class="QCheckBox" name="Preprocess">
+          <property name="field_name" stdset="0">
+               <string>Preprocess</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Proceso que ejecuta el cosido y alineamiento inicial</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="3" column="0">
+     <widget class="QLabel" name="label_Optimize">
+          <property name="text">
+          <string>Optimize:</string>
+          </property>
+     </widget>
+     </item>
+<item row="3" column="1">
+     
+     <widget class="QCheckBox" name="Optimize">
+          <property name="field_name" stdset="0">
+               <string>Optimize</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Proceso que ejecuta la optimizacion del alineamiento inicial con puntos de apoyo</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="4" column="0">
+     <widget class="QLabel" name="label_Split">
+          <property name="text">
+          <string>Split:</string>
+          </property>
+     </widget>
+     </item>
+<item row="4" column="1">
+     
+     <widget class="QCheckBox" name="Split">
+          <property name="field_name" stdset="0">
+               <string>Split</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Proceso que ejecuta la particion del trabajo en tiles</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="5" column="0">
+     <widget class="QLabel" name="label_PointCloud">
+          <property name="text">
+          <string>Pointcloud:</string>
+          </property>
+     </widget>
+     </item>
+<item row="5" column="1">
+     
+     <widget class="QCheckBox" name="PointCloud">
+          <property name="field_name" stdset="0">
+               <string>PointCloud</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Proceso que ejecuta la creacion y exportacion de la nube de puntos densa</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="6" column="0">
+     <widget class="QLabel" name="label_DEMs">
+          <property name="text">
+          <string>Dems:</string>
+          </property>
+     </widget>
+     </item>
+<item row="6" column="1">
+     
+     <widget class="QCheckBox" name="DEMs">
+          <property name="field_name" stdset="0">
+               <string>DEMs</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Proceso que ejecuta la creacion y exportacion de los modelos digitales de elevaciones</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="7" column="0">
+     <widget class="QLabel" name="label_Orthomosaic">
+          <property name="text">
+          <string>Orthomosaic:</string>
+          </property>
+     </widget>
+     </item>
+<item row="7" column="1">
+     
+     <widget class="QCheckBox" name="Orthomosaic">
+          <property name="field_name" stdset="0">
+               <string>Orthomosaic</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Proceso que ejecuta la creacion y exportacion del ortomosaico</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="8" column="0">
+     <widget class="QLabel" name="label_Report">
+          <property name="text">
+          <string>Report:</string>
+          </property>
+     </widget>
+     </item>
+<item row="8" column="1">
+     
+     <widget class="QCheckBox" name="Report">
+          <property name="field_name" stdset="0">
+               <string>Report</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Proceso que ejecuta la exportacion del informe de resultados</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  
+      </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>reject()</slot>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>accept()</slot>
+  </connection>
+  
+ </connections>
+  <slots>
+    <slot>listAddButtonClicked()</slot>
+    <slot>fileWidgetButtonClicked()</slot>
+    <slot>imageWidgetRemoveButtonClicked()</slot>
+    <slot>imageWidgetChangeButtonClicked()</slot>
+    <slot>imagesWidgetChangeDirectoryButtonClicked()</slot>
+    <slot>listDeleteButtonClicked()</slot>
+    <slot>objectDetailButtonClicked()</slot>
+    <slot>tableAddButtonClicked()</slot>
+    <slot>tableDeleteButtonClicked()</slot>
+    <slot>simpleGridFirstPageButtonClicked()</slot>
+    <slot>simpleGridPreviousPageButtonClicked()</slot>
+    <slot>simpleGridNextPageButtonClicked()</slot>
+    <slot>simpleGridLastPageButtonClicked()</slot>
+    <slot>simpleGridPageCountComboChanged()</slot>
+
+
+ </slots>
+</ui>

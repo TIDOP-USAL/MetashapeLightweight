@@ -1,0 +1,17 @@
+[18:30] ANA DEL CAMPO SÁNCHEZ (Externo)
+roi_xml_auto
+
+	usa roi
+
+	usa gcps en .xml
+
+	usa tiling no editable
+
+roi_xml_manual
+
+	usa roi
+
+	usa gcps en .xml
+
+	usa tiling editable (0, se crea, se edita y luego se lanza el 1)
+ 

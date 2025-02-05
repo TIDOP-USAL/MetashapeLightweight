@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SampleDialog</class>
+ <widget class="QDialog" name="SampleDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>406</width>
+    <height>174</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>PointCloud</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+      <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+     <widget class="QLabel" name="label_Quality">
+          <property name="text">
+          <string>Quality:</string>
+          </property>
+     </widget>
+     </item>
+<item row="0" column="1">
+     
+     <widget class="QComboBox" name="Quality">
+          <property name="field_name" stdset="0">
+               <string>Quality</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>combo</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>currentIndex</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Calidad final de la nube de puntos densa</string>
+                    </property>
+                   
+          
+            <item>
+                <property name="text">
+                <string>Mayor posible</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Alto</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Medio</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Bajo</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Menor posible</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+     </widget>
+     
+</item>
+  <item row="1" column="0">
+     <widget class="QLabel" name="label_FilterMode">
+          <property name="text">
+          <string>Filtermode:</string>
+          </property>
+     </widget>
+     </item>
+<item row="1" column="1">
+     
+     <widget class="QComboBox" name="FilterMode">
+          <property name="field_name" stdset="0">
+               <string>FilterMode</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>combo</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>currentIndex</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Tipo de filtrado</string>
+                    </property>
+                   
+          
+            <item>
+                <property name="text">
+                <string>Agresivo</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Falso</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Suave</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Moderado</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+     </widget>
+     
+</item>
+  
+      </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>reject()</slot>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>accept()</slot>
+  </connection>
+  
+ </connections>
+  <slots>
+    <slot>listAddButtonClicked()</slot>
+    <slot>fileWidgetButtonClicked()</slot>
+    <slot>imageWidgetRemoveButtonClicked()</slot>
+    <slot>imageWidgetChangeButtonClicked()</slot>
+    <slot>imagesWidgetChangeDirectoryButtonClicked()</slot>
+    <slot>listDeleteButtonClicked()</slot>
+    <slot>objectDetailButtonClicked()</slot>
+    <slot>tableAddButtonClicked()</slot>
+    <slot>tableDeleteButtonClicked()</slot>
+    <slot>simpleGridFirstPageButtonClicked()</slot>
+    <slot>simpleGridPreviousPageButtonClicked()</slot>
+    <slot>simpleGridNextPageButtonClicked()</slot>
+    <slot>simpleGridLastPageButtonClicked()</slot>
+    <slot>simpleGridPageCountComboChanged()</slot>
+
+
+ </slots>
+</ui>

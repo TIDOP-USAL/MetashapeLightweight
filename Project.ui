@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SampleDialog</class>
+ <widget class="QDialog" name="SampleDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>406</width>
+    <height>174</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Project</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+      <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+     <widget class="QLabel" name="label_Label">
+          <property name="text">
+          <string>Label:</string>
+          </property>
+     </widget>
+     </item>
+<item row="0" column="1">
+     
+     <widget class="QLineEdit" name="Label">
+          <property name="field_name" stdset="0">
+               <string>Label</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>lineedit</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>text</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Etiqueta con la que se nombraran los productos resultantes</string>
+                    </property>
+                   
+          
+        <property name="text">
+            <string>Example project</string>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="1" column="0">
+     <widget class="QLabel" name="label_EPSG">
+          <property name="text">
+          <string>Epsg:</string>
+          </property>
+     </widget>
+     </item>
+<item row="1" column="1">
+     
+     <widget class="QLineEdit" name="EPSG">
+          <property name="field_name" stdset="0">
+               <string>EPSG</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>lineedit</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>text</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Codigo EPSG con el que se exportaran los productos resultantes</string>
+                    </property>
+                   
+          
+        <property name="text">
+            <string>25830+5782</string>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="2" column="0">
+     <widget class="QLabel" name="label_Path">
+          <property name="text">
+          <string>Path:</string>
+          </property>
+     </widget>
+     </item>
+<item row="2" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLineEdit" name="Path">
+          <property name="field_name" stdset="0">
+               <string>Path</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>file</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>text</string>
+          </property> 
+                      
+                    <property name="type" stdset="0">
+                        <string>folder</string>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string>Ruta del directorio de resultados</string>
+                    </property>
+                   
+          
+        <property name="text">
+            <string></string>
+        </property>
+        
+     </widget>
+     </item>
+<item>
+    <widget class="QPushButton" name="fileWidgetButton_Path">
+    <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+    </sizepolicy>
+    </property>
+    <property name="maximumSize">
+    <size>
+    <width>50</width>
+    <height>16777215</height>
+    </size>
+    </property>
+    <property name="font">
+    <font>
+    <pointsize>12</pointsize>
+    <bold>true</bold>
+    </font>
+    </property>
+    <property name="for_file_widget" stdset="0">
+        <string>Path</string>
+    </property>  
+    </widget>
+</item>
+</layout>
+</item>
+  <item row="3" column="0">
+     <widget class="QLabel" name="label_DemGSD">
+          <property name="text">
+          <string>Demgsd:</string>
+          </property>
+     </widget>
+     </item>
+<item row="3" column="1">
+     
+     <widget class="QDoubleSpinBox" name="DemGSD">
+          <property name="field_name" stdset="0">
+               <string>DemGSD</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>double</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="decimals" stdset="0">
+                        <number>2</number>
+                    </property>
+                            
+                    <property name="minimum" stdset="0">
+                        <string>0.0</string>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <string>2.0</string>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <string>0.01</string>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string>Resolucion en metros con la que se exportaran el modelo digital de superficies y del terreno (0 para maxima posible)</string>
+                    </property>
+                   
+          
+        <property name="value">
+            <double>0.05</double>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="4" column="0">
+     <widget class="QLabel" name="label_OrthoGSD">
+          <property name="text">
+          <string>Orthogsd:</string>
+          </property>
+     </widget>
+     </item>
+<item row="4" column="1">
+     
+     <widget class="QDoubleSpinBox" name="OrthoGSD">
+          <property name="field_name" stdset="0">
+               <string>OrthoGSD</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>double</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="decimals" stdset="0">
+                        <number>2</number>
+                    </property>
+                            
+                    <property name="minimum" stdset="0">
+                        <string>0.0</string>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <string>2.0</string>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <string>0.01</string>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string>Resolucion en metros con la que se exportara el ortomosaico (0 para maxima posible)</string>
+                    </property>
+                   
+          
+        <property name="value">
+            <double>0.05</double>
+        </property>
+        
+     </widget>
+     
+</item>
+  
+      </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>reject()</slot>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>accept()</slot>
+  </connection>
+  
+ </connections>
+  <slots>
+    <slot>listAddButtonClicked()</slot>
+    <slot>fileWidgetButtonClicked()</slot>
+    <slot>imageWidgetRemoveButtonClicked()</slot>
+    <slot>imageWidgetChangeButtonClicked()</slot>
+    <slot>imagesWidgetChangeDirectoryButtonClicked()</slot>
+    <slot>listDeleteButtonClicked()</slot>
+    <slot>objectDetailButtonClicked()</slot>
+    <slot>tableAddButtonClicked()</slot>
+    <slot>tableDeleteButtonClicked()</slot>
+    <slot>simpleGridFirstPageButtonClicked()</slot>
+    <slot>simpleGridPreviousPageButtonClicked()</slot>
+    <slot>simpleGridNextPageButtonClicked()</slot>
+    <slot>simpleGridLastPageButtonClicked()</slot>
+    <slot>simpleGridPageCountComboChanged()</slot>
+
+
+ </slots>
+</ui>

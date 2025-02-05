@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SampleDialog</class>
+ <widget class="QDialog" name="SampleDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>406</width>
+    <height>174</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SplitTile</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+      <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+     <widget class="QLabel" name="label_TileSize">
+          <property name="text">
+          <string>Tilesize:</string>
+          </property>
+     </widget>
+     </item>
+<item row="0" column="1">
+     
+     <widget class="QSpinBox" name="TileSize">
+          <property name="field_name" stdset="0">
+               <string>TileSize</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>int</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="minimum" stdset="0">
+                        <number>10</number>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <number>1000</number>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <number>10</number>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string>Tamanio de las celdas en metros (ej. 50)</string>
+                    </property>
+                   
+          
+        <property name="value">
+            <number>50</number>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="1" column="0">
+     <widget class="QLabel" name="label_TileSizeBuffer">
+          <property name="text">
+          <string>Tilesizebuffer:</string>
+          </property>
+     </widget>
+     </item>
+<item row="1" column="1">
+     
+     <widget class="QSpinBox" name="TileSizeBuffer">
+          <property name="field_name" stdset="0">
+               <string>TileSizeBuffer</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>int</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="minimum" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <number>100</number>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string>Porcentaje de solape entre celdas (ej. 5)</string>
+                    </property>
+                   
+          
+        <property name="value">
+            <number>5</number>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="2" column="0">
+     <widget class="QLabel" name="label_Method">
+          <property name="text">
+          <string>Method:</string>
+          </property>
+     </widget>
+     </item>
+<item row="2" column="1">
+     
+     <widget class="QComboBox" name="Method">
+          <property name="field_name" stdset="0">
+               <string>Method</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>combo</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>currentIndex</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Definicion de la malla de celdas a procesar</string>
+                    </property>
+                   
+          
+            <item>
+                <property name="text">
+                <string>Malla editada por el usuario</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Automatico para toda la ROI o zona estereoscopica</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+     </widget>
+     
+</item>
+  <item row="3" column="0">
+     <widget class="QLabel" name="label_Path">
+          <property name="text">
+          <string>Path:</string>
+          </property>
+     </widget>
+     </item>
+<item row="3" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLineEdit" name="Path">
+          <property name="field_name" stdset="0">
+               <string>Path</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>file</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>text</string>
+          </property> 
+                      
+                    <property name="type" stdset="0">
+                        <string>save</string>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string>Fichero de la malla editado por el usario</string>
+                    </property>
+                            
+                    <property name="filters" stdset="0">
+                        <string>*.gpkg</string>
+                    </property>
+                   
+          
+        <property name="text">
+            <string></string>
+        </property>
+        
+     </widget>
+     </item>
+<item>
+    <widget class="QPushButton" name="fileWidgetButton_Path">
+    <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+    </sizepolicy>
+    </property>
+    <property name="maximumSize">
+    <size>
+    <width>50</width>
+    <height>16777215</height>
+    </size>
+    </property>
+    <property name="font">
+    <font>
+    <pointsize>12</pointsize>
+    <bold>true</bold>
+    </font>
+    </property>
+    <property name="for_file_widget" stdset="0">
+        <string>Path</string>
+    </property>  
+    </widget>
+</item>
+</layout>
+</item>
+  <item row="4" column="0">
+     <widget class="QLabel" name="label_MergeMethod">
+          <property name="text">
+          <string>Mergemethod:</string>
+          </property>
+     </widget>
+     </item>
+<item row="4" column="1">
+     
+     <widget class="QComboBox" name="MergeMethod">
+          <property name="field_name" stdset="0">
+               <string>MergeMethod</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>combo</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>currentIndex</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Estrategia de union de los productos resultantes</string>
+                    </property>
+                   
+          
+            <item>
+                <property name="text">
+                <string>OSGeo (raster) y laspy (nubes de puntos)</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Metashape</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+     </widget>
+     
+</item>
+  <item row="5" column="0">
+     <widget class="QLabel" name="label_MergePointClouds">
+          <property name="text">
+          <string>Mergepointclouds:</string>
+          </property>
+     </widget>
+     </item>
+<item row="5" column="1">
+     
+     <widget class="QCheckBox" name="MergePointClouds">
+          <property name="field_name" stdset="0">
+               <string>MergePointClouds</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Unir nubes de puntos</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="6" column="0">
+     <widget class="QLabel" name="label_MergeElevations">
+          <property name="text">
+          <string>Mergeelevations:</string>
+          </property>
+     </widget>
+     </item>
+<item row="6" column="1">
+     
+     <widget class="QCheckBox" name="MergeElevations">
+          <property name="field_name" stdset="0">
+               <string>MergeElevations</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Unir MDEs</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="7" column="0">
+     <widget class="QLabel" name="label_MergeOrthomosaics">
+          <property name="text">
+          <string>Mergeorthomosaics:</string>
+          </property>
+     </widget>
+     </item>
+<item row="7" column="1">
+     
+     <widget class="QCheckBox" name="MergeOrthomosaics">
+          <property name="field_name" stdset="0">
+               <string>MergeOrthomosaics</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>bool</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>checked</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Unir ortomosaicos</string>
+                    </property>
+                   
+          
+        <property name="checked">
+            <bool>true</bool>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="8" column="0">
+     <widget class="QLabel" name="label_MergedDEM">
+          <property name="text">
+          <string>Mergeddem:</string>
+          </property>
+     </widget>
+     </item>
+<item row="8" column="1">
+     
+     <widget class="QComboBox" name="MergedDEM">
+          <property name="field_name" stdset="0">
+               <string>MergedDEM</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>combo</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>currentIndex</string>
+          </property> 
+                      
+                    <property name="toolTip" stdset="0">
+                        <string>Tipo de MDE a unir</string>
+                    </property>
+                   
+          
+            <item>
+                <property name="text">
+                <string>Modelo Digital de Superficies (MDS)</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+            <item>
+                <property name="text">
+                <string>Modelo Digital del Terreno (MDT)</string>
+                </property>
+                <property name="flags">
+                    <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                </property>
+            </item>
+            
+     </widget>
+     
+</item>
+  
+      </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>reject()</slot>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>SampleDialog</receiver>
+   <slot>accept()</slot>
+  </connection>
+  
+ </connections>
+  <slots>
+    <slot>listAddButtonClicked()</slot>
+    <slot>fileWidgetButtonClicked()</slot>
+    <slot>imageWidgetRemoveButtonClicked()</slot>
+    <slot>imageWidgetChangeButtonClicked()</slot>
+    <slot>imagesWidgetChangeDirectoryButtonClicked()</slot>
+    <slot>listDeleteButtonClicked()</slot>
+    <slot>objectDetailButtonClicked()</slot>
+    <slot>tableAddButtonClicked()</slot>
+    <slot>tableDeleteButtonClicked()</slot>
+    <slot>simpleGridFirstPageButtonClicked()</slot>
+    <slot>simpleGridPreviousPageButtonClicked()</slot>
+    <slot>simpleGridNextPageButtonClicked()</slot>
+    <slot>simpleGridLastPageButtonClicked()</slot>
+    <slot>simpleGridPageCountComboChanged()</slot>
+
+
+ </slots>
+</ui>
