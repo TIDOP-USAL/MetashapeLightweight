@@ -6,7 +6,7 @@
   * `conda activate metashape`
   * `pip install C:\Metashape-2.1.3-cp37.cp38.cp39.cp310.cp311-none-win_amd64.whl`
   * `conda install -c conda-forge gdal=3.9.2`
-  * `y`
+  * `conda install -c conda-forge laspy=2.5.4`
   * `conda install pyqt=5.15.10`
 * Agisoft Metashape 2.1.3 [link](https://download.agisoft.com/metashape-pro_2_1_3_x64.msi) + activar licencia en GUI.
 * Módulo python de Metashape Pro 2.1.3 [link](https://download.agisoft.com/Metashape-2.1.3-cp37.cp38.cp39.cp310.cp311-none-win_amd64.whl)
