@@ -59,7 +59,7 @@ class MetashapeTools:
             gt.update_log(text="License = Not activated")
             raise SystemExit(0)
         # comprueba versión
-        compatible_major_version = "2.1"
+        compatible_major_version = "2.2"
         found_major_version = ".".join(Metashape.app.version.split('.')[:2])
         if found_major_version != compatible_major_version:
             gt.update_log(text="Incompatible Metashape version: {} != {}"
@@ -1112,7 +1112,8 @@ class MetashapeTools:
                     path=os.path.join(gt.output_path, label + '_point_cloud.las'),
                     source_data=Metashape.PointCloudData,
                     crs=self.project_crs,
-                    clip_to_boundary=True,
+                    # clip_to_boundary=True,
+                    clip_to_boundary=False,
                     save_point_color=True,
                     save_point_normal=False,
                     save_point_intensity=True,

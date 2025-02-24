@@ -1,32 +1,32 @@
 {
     "Project": {
-        "Label": "test10",
-        "EPSG": "25830+5782",
-        "Path": "D://dataset",
+        "Label": "test6",
+        "EPSG": "25830",
+        "Path": "D://MetashapeLightweightProjects//test_rail",
         "DemGSD": 0.1,
         "OrthoGSD": 0.1
     },
     "Workflow": {
-        "CleanPrevious": "False",
-        "Initialize": "False",
-        "Preprocess": "False",
-        "Optimize": "False",
-        "Split": "True",
+        "CleanPrevious": "True",
+        "Initialize": "True",
+        "Preprocess": "True",
+        "Optimize": "True",
+        "Split": "False",
         "PointCloud": "True",
         "DEMs": "True",
         "Orthomosaic": "True",
         "Report": "True"
     },
     "Photo": {
-        "Path": "D://dataset",
+        "Path": "D://MetashapeLightweightProjects//test_rail//data",
         "LocationAccuracy2D": 0.08,
         "LocationAccuracyHeight": 0.12,
         "Method": "EXIF",
         "EPSG": "4326",
-        "EoPath": "D://dataset//eo_4326.csv"
+        "EoPath": "D://MetashapeLightweightProjects//test_rail//data//eo_4326.csv"
     },
     "ROI": {
-        "Path": "D://dataset//roi_4326.shp",
+        "Path": "D://MetashapeLightweightProjects//test_rail//data//roi_4326.shp",
         "Method": "SHP"
     },
     "CameraCalibration": {
@@ -45,21 +45,21 @@
     "OptimizeAlignment": {
         "Method": "XML",
 		"EPSG": "25830+5782",
-		"Path": "D://dataset//markers.xml",
+		"Path": "D://MetashapeLightweightProjects//test_rail//data//markers.xml",
 		"Accuracy": "Low",
 		"ReferencePreselection": "Source",
 		"TiePointLimit": 10000
     },
     "SplitTile": {
-        "TileSize": 20,
-        "TileSizeBuffer": 5,
-        "Method": "MANUAL",
-        "Path": "D://dataset//tile_grid_manual.gpkg",
-        "MergeMethod": "Metashape",
+        "TileSize": 10,
+        "TileSizeBuffer": 10,
+        "Method": "0",
+        "Path": "D://MetashapeLightweightProjects//test_rail//data//tile_grid_manual.gpkg",
+        "MergeMethod": "OsgeoLaspy",
         "MergePointClouds": "True",
         "MergeElevations": "True",
         "MergeOrthomosaics": "True",
-        "MergedDEM": "DTM"
+        "MergedDEM": "DSM"
     },
     "PointCloud": {
         "Quality": "Low",
@@ -73,7 +73,7 @@
 		"GroundErosionRadius": 0
     },
     "InstallRequirement": {
-        "Env": "C:/miniconda/envs/metashape",
+        "Env": "C:/miniconda/envs/metashape_2_2_0",
         "Geoid": "C:/Program Files/Agisoft/Metashape Pro/geoids"
     }
 }

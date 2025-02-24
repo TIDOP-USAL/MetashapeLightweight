@@ -1,0 +1,11 @@
+Práctica habitual trabajando con GCPs:
+1. Dibujar una roi en shapefile con QGIS en 4326, da igual que tenga altitudes
+2. Proceso para preparar la medición de los GCPs <- fichero de parámetros
+   La elección de los parámetros de matching y align ya no van a cambiar
+3. Medir los GCPs en Metashape
+4. Proceso para tilear y preparar la información para la selección manual de tiles -> gpkg  <- fichero de parámetros
+   La calibración y orientación ya se ha fijado
+5. Con QGIS se eligen los tiles a procesar
+6. Lanzar el resto del proceso <- fichero de parámetros
+   Parámetros de la nube densa (confidence), dems, orto
+
