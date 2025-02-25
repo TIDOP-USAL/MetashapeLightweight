@@ -8,8 +8,13 @@ class InstallRequirement:
 		self.__json_content_by_propierty = {}
 		self.__json_content_by_propierty['text'] = {'spanish': 'Requisitos de instalacion', 'english': 'Install requirements'}
 		self.__text = 'Requisitos de instalacion'
-		self.__json_content_by_propierty['Env'] = {'text': {'spanish': 'Carpeta del entorno conda', 'english': 'Conda environment folder'}, 'definition': {'spanish': 'Carpeta del entorno conda', 'english': 'Conda environment folder'}, 'type': 'folder', 'default': ''}
-		self.__text_by_propierty['Env'] = 'Carpeta del entorno conda'
+		self.__json_content_by_propierty['CondaPath'] = {'text': {'spanish': 'Carpeta de instalacion de conda/miniconda', 'english': 'Conda/miniconda installation folder'}, 'definition': {'spanish': 'Carpeta de instalacion de conda/miniconda', 'english': 'Conda/miniconda installation folder'}, 'type': 'folder', 'default': ''}
+		self.__text_by_propierty['CondaPath'] = 'Carpeta de instalacion de conda/miniconda'
+		self.__widget_by_propierty['CondaPath'] = None
+		self.__CondaPath = ""
+		self.__CondaPath_value = ""
+		self.__json_content_by_propierty['Env'] = {'text': {'spanish': 'Nombre del entorno conda', 'english': 'Conda environment name'}, 'definition': {'spanish': 'Nombre del entorno conda', 'english': 'Conda environment name'}, 'type': 'string', 'default': ''}
+		self.__text_by_propierty['Env'] = 'Nombre del entorno conda'
 		self.__widget_by_propierty['Env'] = None
 		self.__Env = ""
 		self.__Env_value = ""
@@ -28,6 +33,7 @@ class InstallRequirement:
 
 	def get_values_as_dictionary(self):
 		values = {}
+		values['CondaPath'] = self.__CondaPath_value
 		values['Env'] = self.__Env_value
 		values['Geoid'] = self.__Geoid_value
 		return values
@@ -45,11 +51,32 @@ class InstallRequirement:
 		return widget_propierty
 
 	@property
+	def CondaPath(self):
+		return self.__CondaPath
+
+	@CondaPath.setter
+	def CondaPath(self, value: 'widget:file, type:folder, toolTip:Carpeta de instalacion de conda/miniconda'):
+		self.__CondaPath = value
+
+	def set_CondaPath_value(self):
+		propierty_CondaPath_widget = self.__widget_by_propierty['CondaPath'] 
+		if isinstance(propierty_CondaPath_widget, QSpinBox):
+			self.__CondaPath_value = propierty_CondaPath_widget.value()
+		elif isinstance(propierty_CondaPath_widget, QDoubleSpinBox):
+			self.__CondaPath_value = propierty_CondaPath_widget.value()
+		elif isinstance(propierty_CondaPath_widget, QComboBox):
+			self.__CondaPath_value = propierty_CondaPath_widget.currentText()
+		elif isinstance(propierty_CondaPath_widget, QLineEdit):
+			self.__CondaPath_value = propierty_CondaPath_widget.text()
+		elif isinstance(propierty_CondaPath_widget, QCheckBox):
+			self.__CondaPath_value = propierty_CondaPath_widget.isChecked()
+
+	@property
 	def Env(self):
 		return self.__Env
 
 	@Env.setter
-	def Env(self, value: 'widget:file, type:folder, toolTip:Carpeta del entorno conda'):
+	def Env(self, value: 'widget:QLineEdit, toolTip:Nombre del entorno conda'):
 		self.__Env = value
 
 	def set_Env_value(self):
@@ -112,6 +139,19 @@ class InstallRequirement:
 
 	def set_widget(self, widget):
 		self.__widget = widget
+		propierty_CondaPath_widget = self.__widget.get_widget('CondaPath')
+		if isinstance(propierty_CondaPath_widget, QSpinBox):
+			propierty_CondaPath_widget.valueChanged.connect(self.set_CondaPath_value)
+		elif isinstance(propierty_CondaPath_widget, QDoubleSpinBox):
+			propierty_CondaPath_widget.valueChanged.connect(self.set_CondaPath_value)
+		elif isinstance(propierty_CondaPath_widget, QComboBox):
+			propierty_CondaPath_widget.currentIndexChanged.connect(self.set_CondaPath_value)
+		elif isinstance(propierty_CondaPath_widget, QLineEdit):
+			propierty_CondaPath_widget.editingFinished.connect(self.set_CondaPath_value)
+			propierty_CondaPath_widget.textChanged.connect(self.set_CondaPath_value)
+		elif isinstance(propierty_CondaPath_widget, QCheckBox):
+			propierty_CondaPath_widget.stateChanged.connect(self.set_CondaPath_value)
+		self.__widget_by_propierty['CondaPath'] = propierty_CondaPath_widget
 		propierty_Env_widget = self.__widget.get_widget('Env')
 		if isinstance(propierty_Env_widget, QSpinBox):
 			propierty_Env_widget.valueChanged.connect(self.set_Env_value)

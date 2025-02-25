@@ -37,7 +37,7 @@
           </property> 
                       
                     <property name="minimum" stdset="0">
-                        <number>10</number>
+                        <number>0</number>
                     </property>
                             
                     <property name="maximum" stdset="0">
@@ -171,10 +171,6 @@
                <string>text</string>
           </property> 
                       
-                    <property name="type" stdset="0">
-                        <string>save</string>
-                    </property>
-                            
                     <property name="toolTip" stdset="0">
                         <string>Fichero de la malla editado por el usario</string>
                     </property>

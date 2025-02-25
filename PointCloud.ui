@@ -153,6 +153,318 @@
      </widget>
      
 </item>
+  <item row="2" column="0">
+     <widget class="QLabel" name="label_ConfidenceRangeMin">
+          <property name="text">
+          <string>Confidencerangemin:</string>
+          </property>
+     </widget>
+     </item>
+<item row="2" column="1">
+     
+     <widget class="QSpinBox" name="ConfidenceRangeMin">
+          <property name="field_name" stdset="0">
+               <string>ConfidenceRangeMin</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>int</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="minimum" stdset="0">
+                        <number>0</number>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <number>255</number>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string>Numero minimo de mapas de profundidad implicados en la generacion de puntos</string>
+                    </property>
+                   
+          
+        <property name="value">
+            <number>0</number>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="3" column="0">
+     <widget class="QLabel" name="label_ConfidenceRangeMax">
+          <property name="text">
+          <string>Confidencerangemax:</string>
+          </property>
+     </widget>
+     </item>
+<item row="3" column="1">
+     
+     <widget class="QSpinBox" name="ConfidenceRangeMax">
+          <property name="field_name" stdset="0">
+               <string>ConfidenceRangeMax</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>int</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="minimum" stdset="0">
+                        <number>0</number>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <number>255</number>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string>Numero maximo de mapas de profundidad implicados en la generacion de puntos</string>
+                    </property>
+                   
+          
+        <property name="value">
+            <number>255</number>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="4" column="0">
+     <widget class="QLabel" name="label_GroundMaxAngle">
+          <property name="text">
+          <string>Groundmaxangle:</string>
+          </property>
+     </widget>
+     </item>
+<item row="4" column="1">
+     
+     <widget class="QSpinBox" name="GroundMaxAngle">
+          <property name="field_name" stdset="0">
+               <string>GroundMaxAngle</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>int</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="minimum" stdset="0">
+                        <number>0</number>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <number>45</number>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string></string>
+                    </property>
+                   
+          
+        <property name="value">
+            <number>15</number>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="5" column="0">
+     <widget class="QLabel" name="label_GroundMaxDistance">
+          <property name="text">
+          <string>Groundmaxdistance:</string>
+          </property>
+     </widget>
+     </item>
+<item row="5" column="1">
+     
+     <widget class="QSpinBox" name="GroundMaxDistance">
+          <property name="field_name" stdset="0">
+               <string>GroundMaxDistance</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>int</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="minimum" stdset="0">
+                        <number>0</number>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <number>20</number>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string></string>
+                    </property>
+                   
+          
+        <property name="value">
+            <number>1</number>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="6" column="0">
+     <widget class="QLabel" name="label_GroundMaxSlope">
+          <property name="text">
+          <string>Groundmaxslope:</string>
+          </property>
+     </widget>
+     </item>
+<item row="6" column="1">
+     
+     <widget class="QSpinBox" name="GroundMaxSlope">
+          <property name="field_name" stdset="0">
+               <string>GroundMaxSlope</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>int</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="minimum" stdset="0">
+                        <number>0</number>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <number>90</number>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string></string>
+                    </property>
+                   
+          
+        <property name="value">
+            <number>45</number>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="7" column="0">
+     <widget class="QLabel" name="label_GroundCellSize">
+          <property name="text">
+          <string>Groundcellsize:</string>
+          </property>
+     </widget>
+     </item>
+<item row="7" column="1">
+     
+     <widget class="QSpinBox" name="GroundCellSize">
+          <property name="field_name" stdset="0">
+               <string>GroundCellSize</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>int</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="minimum" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <number>100</number>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string></string>
+                    </property>
+                   
+          
+        <property name="value">
+            <number>50</number>
+        </property>
+        
+     </widget>
+     
+</item>
+  <item row="8" column="0">
+     <widget class="QLabel" name="label_GroundErosionRadius">
+          <property name="text">
+          <string>Grounderosionradius:</string>
+          </property>
+     </widget>
+     </item>
+<item row="8" column="1">
+     
+     <widget class="QDoubleSpinBox" name="GroundErosionRadius">
+          <property name="field_name" stdset="0">
+               <string>GroundErosionRadius</string>
+          </property>
+          <property name="key" stdset="0">
+               <string>double</string>
+          </property>
+          <property name="prop_name" stdset="0">
+               <string>value</string>
+          </property> 
+                      
+                    <property name="decimals" stdset="0">
+                        <number>2</number>
+                    </property>
+                            
+                    <property name="minimum" stdset="0">
+                        <number>0</number>
+                    </property>
+                            
+                    <property name="maximum" stdset="0">
+                        <number>100</number>
+                    </property>
+                            
+                    <property name="singleStep" stdset="0">
+                        <number>1</number>
+                    </property>
+                            
+                    <property name="toolTip" stdset="0">
+                        <string></string>
+                    </property>
+                   
+          
+        <property name="value">
+            <double>0</double>
+        </property>
+        
+     </widget>
+     
+</item>
   
       </layout>
    </item>

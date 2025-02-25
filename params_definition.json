@@ -874,7 +874,7 @@
 			},
 			"type": "integer",
 			"minimum": 0,
-			"maximum": 5,
+			"maximum": 20,
 			"singleStep": 1,
 			"default": 1
 		},
@@ -930,16 +930,28 @@
 			"spanish": "Requisitos de instalacion",
 			"english": "Install requirements"
 		},
-		"Env": {
+		"CondaPath": {
 			"text":{
-				"spanish": "Carpeta del entorno conda",
-				"english": "Conda environment folder"
+				"spanish": "Carpeta de instalacion de conda/miniconda",
+				"english": "Conda/miniconda installation folder"
 			},
 			"definition":{
-				"spanish": "Carpeta del entorno conda",
-				"english": "Conda environment folder"
+				"spanish": "Carpeta de instalacion de conda/miniconda",
+				"english": "Conda/miniconda installation folder"
 			},
 			"type": "folder",
+			"default": ""
+		},
+		"Env": {
+			"text":{
+				"spanish": "Nombre del entorno conda",
+				"english": "Conda environment name"
+			},
+			"definition":{
+				"spanish": "Nombre del entorno conda",
+				"english": "Conda environment name"
+			},
+			"type": "string",
 			"default": ""
 		},
 		"Geoid": {

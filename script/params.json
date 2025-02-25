@@ -44,16 +44,16 @@
     },
     "OptimizeAlignment": {
         "Method": "XML",
-		"EPSG": "25830+5782",
-		"Path": "D://MetashapeLightweightProjects//test_rail//data//markers.xml",
-		"Accuracy": "Low",
-		"ReferencePreselection": "Source",
-		"TiePointLimit": 10000
+        "EPSG": "25830+5782",
+        "Path": "D://MetashapeLightweightProjects//test_rail//data//markers.xml",
+        "Accuracy": "Low",
+        "ReferencePreselection": "Source",
+        "TiePointLimit": 10000
     },
     "SplitTile": {
         "TileSize": 10,
         "TileSizeBuffer": 10,
-        "Method": "0",
+        "Method": "MANUAL",
         "Path": "D://MetashapeLightweightProjects//test_rail//data//tile_grid_manual.gpkg",
         "MergeMethod": "OsgeoLaspy",
         "MergePointClouds": "True",
@@ -67,13 +67,14 @@
         "ConfidenceRangeMin": 0,
         "ConfidenceRangeMax": 0,
         "GroundMaxAngle": 10,
-		"GroundMaxDistance": 10,
-		"GroundMaxSlope": 20,
-		"GroundCellSize": 5,
-		"GroundErosionRadius": 0
+        "GroundMaxDistance": 10,
+        "GroundMaxSlope": 20,
+        "GroundCellSize": 5,
+        "GroundErosionRadius": 0
     },
     "InstallRequirement": {
-        "Env": "C:/miniconda/envs/metashape_2_2_0",
+        "CondaPath": "C:/miniconda",
+        "Env": "metashape_2_2_0",
         "Geoid": "C:/Program Files/Agisoft/Metashape Pro/geoids"
     }
 }

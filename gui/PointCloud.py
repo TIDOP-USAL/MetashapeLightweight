@@ -33,7 +33,7 @@ class PointCloud:
 		self.__widget_by_propierty['GroundMaxAngle'] = None
 		self.__GroundMaxAngle = 15
 		self.__GroundMaxAngle_value = 15
-		self.__json_content_by_propierty['GroundMaxDistance'] = {'text': {'spanish': 'Terreno. Distancia maxima (m)', 'english': 'Ground. Max distance (m)'}, 'definition': {'spanish': '', 'english': 'Maximum distance between the point in question and terrain model'}, 'type': 'integer', 'minimum': 0, 'maximum': 5, 'singleStep': 1, 'default': 1}
+		self.__json_content_by_propierty['GroundMaxDistance'] = {'text': {'spanish': 'Terreno. Distancia maxima (m)', 'english': 'Ground. Max distance (m)'}, 'definition': {'spanish': '', 'english': 'Maximum distance between the point in question and terrain model'}, 'type': 'integer', 'minimum': 0, 'maximum': 20, 'singleStep': 1, 'default': 1}
 		self.__text_by_propierty['GroundMaxDistance'] = 'Terreno. Distancia maxima (m)'
 		self.__widget_by_propierty['GroundMaxDistance'] = None
 		self.__GroundMaxDistance = 1
@@ -196,7 +196,7 @@ class PointCloud:
 		return self.__GroundMaxDistance
 
 	@GroundMaxDistance.setter
-	def GroundMaxDistance(self, value: 'widget:QSpinBox, minimum:0, maximum:5, singleStep:1, toolTip:'):
+	def GroundMaxDistance(self, value: 'widget:QSpinBox, minimum:0, maximum:20, singleStep:1, toolTip:'):
 		self.__GroundMaxDistance = value
 
 	def set_GroundMaxDistance_value(self):

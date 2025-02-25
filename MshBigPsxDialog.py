@@ -19,7 +19,8 @@ from gui.SplitTile import SplitTile
 from gui import gui_defines
 import json
 import Tools
-
+import shutil
+import subprocess
 
 class MshBigPsxDialog(QDialog):
     """Employee dialog."""
@@ -83,14 +84,14 @@ class MshBigPsxDialog(QDialog):
                     self.geoids_path = ''
         self.settings.setValue("geoids_path", self.geoids_path)
         self.settings.sync()
-        self.conda_env_path = self.settings.value("conda_env_path")
-        if self.conda_env_path:
-            self.conda_env_path = os.path.normpath(self.conda_env_path)
-            if not current_dir.exists(self.conda_env_path):
-                self.conda_env_path = None
+        self.conda_path = self.settings.value("conda_path")
+        if self.conda_path:
+            self.conda_path = os.path.normpath(self.conda_path)
+            if not current_dir.exists(self.conda_path):
+                self.conda_path = None
         else:
-            self.conda_env_path = ''
-        self.settings.setValue("conda_env_path", self.conda_env_path)
+            self.conda_path = ''
+        self.settings.setValue("conda_path", self.conda_path)
         self.settings.sync()
         self.openProjectPushButton.setEnabled(False)
         self.closeProjectPushButton.setEnabled(False)
@@ -104,6 +105,14 @@ class MshBigPsxDialog(QDialog):
         self.projectFile = None
         self.class_path = os.path.dirname(os.path.realpath(__file__))
         self.template_path = self.class_path + gui_defines.TEMPLATE_PATH
+        self.template_path = os.path.normpath(self.template_path)
+        self.script_path = self.class_path + gui_defines.SCRIPT_PATH
+        self.script_path = os.path.normpath(self.script_path)
+        self.params_json_to_execute = self.class_path + gui_defines.PARAMS_JSON_TO_EXECUTE
+        self.params_json_to_execute = os.path.normpath(self.params_json_to_execute)
+        self.python_script_to_execute = gui_defines.PYTHON_SCRIPT_TO_EXECUTE
+        self.python_script_to_execute_with_path = self.script_path + '//' + self.python_script_to_execute
+        self.python_script_to_execute_with_path = os.path.normpath(self.python_script_to_execute_with_path)
         self.path = self.settings.value("last_path")
         current_dir = QDir.current()
         if not self.path:
@@ -122,11 +131,11 @@ class MshBigPsxDialog(QDialog):
                 self.geoids_path = geoids_path
         self.settings.setValue("geoids_path", self.geoids_path)
         self.settings.sync()
-        self.conda_env_path = self.settings.value("conda_env_path")
-        if self.conda_env_path:
-            if not current_dir.exists(self.conda_env_path):
-                self.conda_env_path = None
-        self.settings.setValue("conda_env_path", self.conda_env_path)
+        self.conda_path = self.settings.value("conda_path")
+        if self.conda_path:
+            if not current_dir.exists(self.conda_path):
+                self.conda_path = None
+        self.settings.setValue("conda_path", self.conda_path)
         self.settings.sync()
         self.projects = []
         strProjects = self.settings.value("projects")
@@ -232,20 +241,20 @@ class MshBigPsxDialog(QDialog):
                             return str_error
                 values[attributes_in_definitions] = value
             if class_name == gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT:
-                conda_env_path = values[gui_defines.REQUIREMENTS_CONDA_ENVIRONMENT_TAG]
-                if conda_env_path:
-                    conda_env_path = os.path.normpath(conda_env_path)
-                    if current_dir.exists(conda_env_path):
-                        if self.conda_env_path != conda_env_path:
-                            self.conda_env_path = conda_env_path
-                            self.settings.setValue("conda_env_path", self.conda_env_path)
+                conda_path = values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG]
+                if conda_path:
+                    conda_path = os.path.normpath(conda_path)
+                    if current_dir.exists(conda_path):
+                        if self.conda_path != conda_path:
+                            self.conda_path = conda_path
+                            self.settings.setValue("conda_path", self.conda_path)
                             self.settings.sync()
                     else:
-                        if self.conda_env_path:
-                            values[gui_defines.REQUIREMENTS_CONDA_ENVIRONMENT_TAG] = self.conda_env_path
+                        if self.conda_path:
+                            values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG] = self.conda_path
                 else:
-                    if self.conda_env_path:
-                        values[gui_defines.REQUIREMENTS_CONDA_ENVIRONMENT_TAG] = self.conda_env_path
+                    if self.conda_path:
+                        values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG] = self.conda_path
                 geoids_path = values[gui_defines.REQUIREMENTS_GEOIDS_PATH_TAG]
                 if geoids_path:
                     geoids_path = os.path.normpath(geoids_path)
@@ -331,23 +340,104 @@ class MshBigPsxDialog(QDialog):
         self.selectProjectFilePushButton.setEnabled(True)
 
     def process(self):
-        output_file = self.projectLineEdit.text()
-        if not output_file:
-            msgBox = QMessageBox(self)
-            msgBox.setIcon(QMessageBox.Information)
-            msgBox.setWindowTitle(self.windowTitle())
-            msgBox.setText("Select output JSON project file before")
-            msgBox.exec_()
-            return
-        output_file = os.path.normpath(output_file)
-        if not QFile.exists(output_file):
+        source_file = self.projectLineEdit.text()
+        source_file = os.path.normpath(source_file)
+        if not QFile.exists(source_file):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle())
             msgBox.setText("Save output JSON file project before")
             msgBox.exec_()
             return
-
+        target_file = self.params_json_to_execute
+        try:
+            shutil.copyfile(source_file, target_file)
+        # If source and destination are same
+        except shutil.SameFileError:
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle())
+            msg = ("Copying file:\n{}\nto file:\n{}\n".format(source_file, target_file))
+            msg +=("\nSource and destination represents the same file")
+            msgBox.setText(msg)
+            msgBox.exec_()
+            return
+        # If destination is a directory.
+        except IsADirectoryError:
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle())
+            msg = ("Copying file:\n{}\nto file:\n{}\n".format(source_file, target_file))
+            msg +=("\nDestination is a directory")
+            msgBox.setText(msg)
+            msgBox.exec_()
+            return
+        # If there is any permission issue
+        except PermissionError:
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle())
+            msg = ("Copying file:\n{}\nto file:\n{}\n".format(source_file, target_file))
+            msg +=("\nPermission denied")
+            msgBox.setText(msg)
+            msgBox.exec_()
+            return
+        # For other errors
+        except:
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle())
+            msg = ("Copying file:\n{}\nto file:\n{}\n".format(source_file, target_file))
+            msg +=("\nError occurred while copying file")
+            msgBox.setText(msg)
+            msgBox.exec_()
+            return
+        if not os.path.exists(target_file):
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle())
+            msg = ("Copying file:\n{}\nto file:\n{}\n".format(source_file, target_file))
+            msg +=("\nError occurred while copying file")
+            msgBox.setText(msg)
+            msgBox.exec_()
+            return
+        if not os.path.exists(self.python_script_to_execute_with_path):
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle())
+            msg = ("Not exists python script to execute:\n{}".format(self.python_script_to_execute))
+            msgBox.setText(msg)
+            msgBox.exec_()
+            return
+        requeriments_values = self.object_by_name[gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT].get_values_as_dictionary()
+        conda_path = requeriments_values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG]
+        if not os.path.exists(conda_path):
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle())
+            msg = ("Not exists conda path:\n{}".format(conda_path))
+            msgBox.setText(msg)
+            msgBox.exec_()
+            return
+        conda_executable = conda_path + gui_defines.CONDA_EXECUTABLE
+        conda_executable = os.path.normpath(conda_executable)
+        conda_executable_exe = conda_executable + '.exe'
+        if not os.path.exists(conda_executable_exe):
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle())
+            msg = ("Not exists conda executable file:\n{}".format(conda_executable_exe))
+            msgBox.setText(msg)
+            msgBox.exec_()
+            return
+        conda_env_name =  requeriments_values[gui_defines.REQUIREMENTS_CONDA_ENVIRONMENT_TAG]
+        command = ('{} run -n {} --cwd {} --no-capture-output python {}'.
+                   format(conda_executable, conda_env_name, self.script_path, self.python_script_to_execute))
+        # os.system(command)
+        # os.system('C:/miniconda/scripts/conda run -n metashape_2_2_0 --cwd E:/python/MetashapeLightweight/script --no-capture-output python main.py')
+        # os.system('E:\\python\\MetashapeLightweight\\script\\dhl.bat')
+        os.system('python E:\\python\\MetashapeLightweight\\script\\main.py')
+        # subprocess.run(command, text=True, shell=True)
         return
 
     def removeProject(self):
