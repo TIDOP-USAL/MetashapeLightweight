@@ -409,34 +409,37 @@ class MshBigPsxDialog(QDialog):
             msgBox.setText(msg)
             msgBox.exec_()
             return
-        requeriments_values = self.object_by_name[gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT].get_values_as_dictionary()
-        conda_path = requeriments_values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG]
-        if not os.path.exists(conda_path):
-            msgBox = QMessageBox(self)
-            msgBox.setIcon(QMessageBox.Information)
-            msgBox.setWindowTitle(self.windowTitle())
-            msg = ("Not exists conda path:\n{}".format(conda_path))
-            msgBox.setText(msg)
-            msgBox.exec_()
-            return
-        conda_executable = conda_path + gui_defines.CONDA_EXECUTABLE
-        conda_executable = os.path.normpath(conda_executable)
-        conda_executable_exe = conda_executable + '.exe'
-        if not os.path.exists(conda_executable_exe):
-            msgBox = QMessageBox(self)
-            msgBox.setIcon(QMessageBox.Information)
-            msgBox.setWindowTitle(self.windowTitle())
-            msg = ("Not exists conda executable file:\n{}".format(conda_executable_exe))
-            msgBox.setText(msg)
-            msgBox.exec_()
-            return
-        conda_env_name =  requeriments_values[gui_defines.REQUIREMENTS_CONDA_ENVIRONMENT_TAG]
-        command = ('{} run -n {} --cwd {} --no-capture-output python {}'.
-                   format(conda_executable, conda_env_name, self.script_path, self.python_script_to_execute))
+        # requeriments_values = self.object_by_name[gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT].get_values_as_dictionary()
+        # conda_path = requeriments_values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG]
+        # if not os.path.exists(conda_path):
+        #     msgBox = QMessageBox(self)
+        #     msgBox.setIcon(QMessageBox.Information)
+        #     msgBox.setWindowTitle(self.windowTitle())
+        #     msg = ("Not exists conda path:\n{}".format(conda_path))
+        #     msgBox.setText(msg)
+        #     msgBox.exec_()
+        #     return
+        # conda_executable = conda_path + gui_defines.CONDA_EXECUTABLE
+        # conda_executable = os.path.normpath(conda_executable)
+        # conda_executable_exe = conda_executable + '.exe'
+        # if not os.path.exists(conda_executable_exe):
+        #     msgBox = QMessageBox(self)
+        #     msgBox.setIcon(QMessageBox.Information)
+        #     msgBox.setWindowTitle(self.windowTitle())
+        #     msg = ("Not exists conda executable file:\n{}".format(conda_executable_exe))
+        #     msgBox.setText(msg)
+        #     msgBox.exec_()
+        #     return
+        # conda_env_name =  requeriments_values[gui_defines.REQUIREMENTS_CONDA_ENVIRONMENT_TAG]
+        # command = ('{} run -n {} --cwd {} --no-capture-output python {}'.
+        #            format(conda_executable, conda_env_name, self.script_path, self.python_script_to_execute))
+        # C:\\miniconda\\scripts\\conda run -n metashape_2_2_0 --cwd E:\\python\\MetashapeLightweight\\script --no-capture-output python main.py
+        command = ('python {}'.format(self.python_script_to_execute_with_path))
+        os.system(command)
         # os.system(command)
         # os.system('C:/miniconda/scripts/conda run -n metashape_2_2_0 --cwd E:/python/MetashapeLightweight/script --no-capture-output python main.py')
         # os.system('E:\\python\\MetashapeLightweight\\script\\dhl.bat')
-        os.system('python E:\\python\\MetashapeLightweight\\script\\main.py')
+        # os.system('python E:\\python\\MetashapeLightweight\\script\\main.py')
         # subprocess.run(command, text=True, shell=True)
         return
 
