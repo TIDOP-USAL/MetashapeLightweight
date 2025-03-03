@@ -1,6 +1,6 @@
 {
     "Project": {
-        "Label": "test6",
+        "Label": "test_step_1",
         "EPSG": "25830",
         "Path": "D://MetashapeLightweightProjects//test_rail",
         "DemGSD": 0.1,
@@ -12,10 +12,10 @@
         "Preprocess": "True",
         "Optimize": "True",
         "Split": "False",
-        "PointCloud": "True",
-        "DEMs": "True",
-        "Orthomosaic": "True",
-        "Report": "True"
+        "PointCloud": "False",
+        "DEMs": "False",
+        "Orthomosaic": "False",
+        "Report": "False"
     },
     "Photo": {
         "Path": "D://MetashapeLightweightProjects//test_rail//data",
@@ -26,8 +26,8 @@
         "EoPath": "D://MetashapeLightweightProjects//test_rail//data//eo_4326.csv"
     },
     "ROI": {
-        "Path": "D://MetashapeLightweightProjects//test_rail//data//roi_4326.shp",
-        "Method": "SHP"
+        "Path": "",
+        "Method": "0"
     },
     "CameraCalibration": {
         "f": "True",
@@ -43,9 +43,9 @@
         "p2": "True"
     },
     "OptimizeAlignment": {
-        "Method": "XML",
+        "Method": "PSX",
         "EPSG": "25830+5782",
-        "Path": "D://MetashapeLightweightProjects//test_rail//data//markers.xml",
+        "Path": "D:/MetashapeLightweightProjects/test_rail/data/gcp_25830-5782.csv",
         "Accuracy": "Low",
         "ReferencePreselection": "Source",
         "TiePointLimit": 10000

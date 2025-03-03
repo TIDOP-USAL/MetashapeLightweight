@@ -1,4 +1,4 @@
-echo off
+@echo off
 SETLOCAL
 set ANACONDA_PATH=C:/miniconda
 set ANACONDA_ENV_NAME=metashape_2_2_0

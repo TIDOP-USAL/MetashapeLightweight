@@ -113,38 +113,23 @@ class MshBigPsxDialog(QDialog):
         self.python_script_to_execute = gui_defines.PYTHON_SCRIPT_TO_EXECUTE
         self.python_script_to_execute_with_path = self.script_path + '//' + self.python_script_to_execute
         self.python_script_to_execute_with_path = os.path.normpath(self.python_script_to_execute_with_path)
-        self.path = self.settings.value("last_path")
-        current_dir = QDir.current()
-        if not self.path:
-            self.path = QDir.currentPath()
-            self.settings.setValue("last_path", self.path)
-            self.settings.sync()
-        self.geoids_path = self.settings.value("geoids_path")
-        if self.geoids_path:
-            if not current_dir.exists(self.geoids_path):
-                self.geoids_path = None
-        if not current_dir.exists(self.geoids_path):
-            program_files_path = os.environ["ProgramFiles"]
-            geoids_path = program_files_path + "/" + gui_defines.DEFAULT_GEOIDS_PATH
-            geoids_path = os.path.normpath(geoids_path)
-            if current_dir.exists(geoids_path):
-                self.geoids_path = geoids_path
-        self.settings.setValue("geoids_path", self.geoids_path)
-        self.settings.sync()
-        self.conda_path = self.settings.value("conda_path")
-        if self.conda_path:
-            if not current_dir.exists(self.conda_path):
-                self.conda_path = None
-        self.settings.setValue("conda_path", self.conda_path)
-        self.settings.sync()
         self.projects = []
         strProjects = self.settings.value("projects")
         if strProjects:
             self.projects = strProjects.split(gui_defines.CONST_PROJECTS_STRING_SEPARATOR)
         self.projectsComboBox.clear()
         self.projectsComboBox.addItem(gui_defines.CONST_NO_COMBO_SELECT)
+        str_existing_projects = ''
         for project in self.projects:
-            self.projectsComboBox.addItem(project)
+            project = os.path.normpath(project)
+            if os.path.exists(project):
+                self.projectsComboBox.addItem(project)
+                if str_existing_projects:
+                    str_existing_projects += gui_defines.CONST_PROJECTS_STRING_SEPARATOR
+                str_existing_projects += project
+        # str_existing_projects = '"' + str_existing_projects + '"'
+        self.settings.setValue("projects", str_existing_projects)
+        self.settings.sync()
         self.addProjectPushButton.clicked.connect(self.addProject)
         self.projectsComboBox.currentIndexChanged.connect(self.selectProject)
         self.openProjectPushButton.clicked.connect(self.openProject)

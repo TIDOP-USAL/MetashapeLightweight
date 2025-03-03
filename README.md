@@ -7,7 +7,7 @@
   * `pip install Metashape-2.2.0-cp37.cp38.cp39.cp310.cp311-none-win_amd64.whl`
   * `conda install -c conda-forge gdal=3.9.2`
   * `conda install -c conda-forge laspy=2.5.4`
-  * `conda install pyqt=5.15.10`
+  * `conda install -c conda-forge pyqt=5.15.10`
 * Agisoft Metashape 2.2.0 [link](https://download.agisoft.com/metashape-pro_2_2_0_x64.msi) + activar licencia en GUI.
 * Módulo python de Metashape Pro 2.2.0 [link](https://download.agisoft.com/Metashape-2.2.0-cp37.cp38.cp39.cp310.cp311-none-win_amd64.whl)
 * Modelos del geoide para descargar [link](https://www.agisoft.com/downloads/geoids/)
