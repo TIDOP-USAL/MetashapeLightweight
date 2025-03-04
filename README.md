@@ -1,7 +1,7 @@
 # Requisitos instalación
 
 * Entorno conda
-  * `conda --version` conda 24.9.1
+  * `conda --version` = conda 25.1.1. Actualize con `conda update conda`
   * `conda create -n metashape_2_2_0 python=3.11`
   * `conda activate metashape_2_2_0`
   * `pip install Metashape-2.2.0-cp37.cp38.cp39.cp310.cp311-none-win_amd64.whl`
@@ -17,10 +17,9 @@
 ## Advertencias generales
 
 * EPSG permitidos: 25830, 25830+5782, 4326, 4326+3855, 4258+5782, 4083+9397, 4081+9397.
-* No se permiten parámetros sin dato.
+* El procesamiento con CPU será activado si ninguna GPU es seleccionada
 * La carpeta de resultados será borrada en cada ejecución.
 * No se permiten caracteres especiales en la definición de los parámetros de entrada.
-* Las rutas a directorios o ficheros deben ser absolutas.
 * Los parámetros de orientación interna que no se calibren se mantendrán fijos tras la importación.
 * La captura de las imágenes debe ser con tomas cenitales.
 
@@ -69,9 +68,8 @@ Para utilizar una **región de interés**, debe:
 
 ## Importación de malla de tileado
 
-Para utilizar **una malla vectorial en archivo GPKG** el archivo debe haber sido creado previamente por este script.
+Para utilizar **una malla vectorial en archivo GPKG** el archivo debe haber sido creado previamente por este programa.
 
 # Instrucciones de ejecución
 
-1. Ejecutar el archivo `main.py`
-1. Alternativa para windows: Ejecutar el archivo `execute.bat`
+1. Ejecutar el archivo `MetashapeLightweight.bat`

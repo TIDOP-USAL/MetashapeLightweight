@@ -1,6 +1,6 @@
 import os
 import shutil
-
+import json
 import Metashape
 import numpy
 from osgeo import gdal, ogr, osr
@@ -66,22 +66,33 @@ class MetashapeTools:
                           .format(found_major_version, compatible_major_version))
             raise SystemExit(0)
         # check metashape parameters
-        Metashape.app.gpu_mask = 2 ** len(Metashape.app.enumGPUDevices()) - 1
-        if Metashape.app.gpu_mask:
-            Metashape.app.cpu_enable = False
-        else:
-            Metashape.app.cpu_enable = True
-        gpus = Metashape.app.enumGPUDevices()
+        binary = '0b'
         text_gpus = ''
-        for dicts in gpus:
-            text_gpus = text_gpus + dicts.get('name')
-        gt.update_log(text='Metashape checks:\n'
-                           'Valid license = ' + str(Metashape.license.valid) + '\n' +
+        selected_gpus = gt.params.get("InstallRequirement")["SelectedGPUs"][0:-1] + ',]'
+        selected_gpus = selected_gpus[1:-1].split('},')
+        for read_gpu in Metashape.app.enumGPUDevices():
+            for i in selected_gpus:
+                if not i == '':
+                    i = i + '}'
+                    dict = i.replace("'", "\"")
+                    dict = json.loads(dict)
+                    if read_gpu == dict:
+                        binary = binary + '1'
+                        text_gpus = text_gpus + read_gpu.get('name') + ', '
+                    else:
+                        binary = binary + '0'
+        if binary == '0b':
+            Metashape.app.gpu_mask = 0
+            Metashape.app.cpu_enable = True
+        else:
+            Metashape.app.gpu_mask = int(binary, 2)
+            Metashape.app.cpu_enable = False
+        gt.update_log(text='Metashape checks:\n' +
+                           'Valid license = ' + str(Metashape.License.valid) + '\n' +
                            'Activated license = ' + str(Metashape.app.activated) + '\n' +
                            'Version = ' + str(Metashape.app.version) + '\n' +
                            'Selected GPUs = ' + text_gpus)
         file = os.path.normpath(gt.params_file)
-        import json
         with open(file) as config_file:
             parsed = json.load(config_file)
             parsed_text = json.dumps(parsed, indent=2)
@@ -190,7 +201,6 @@ class MetashapeTools:
         corner_max[1] = corner_max[1] + dif_y + tile_size
         corner_min = self.estimate_region_coords(x=corner_min[0], y=corner_min[1], z=corner_min[2], plane='top')
         corner_max = self.estimate_region_coords(x=corner_max[0], y=corner_max[1], z=corner_max[2], plane='top')
-        # self.set_chunk(label)
         # get roi for intersection
         if self.check_roi():
             driver = ogr.GetDriverByName('GPKG')
@@ -239,7 +249,6 @@ class MetashapeTools:
                 c = self.estimate_region_coords(x=cx, y=cy, z=cz, plane='top').tolist()
                 dx, dy, dz = tile_max[0] + buffer, tile_min[1] - buffer, tile_min[2]
                 d = self.estimate_region_coords(x=dx, y=dy, z=dz, plane='top').tolist()
-                # self.set_chunk(label)
                 tile_corners = [a, b, c, d, a]
                 # prepare to roi intersection in shapes crs
                 ring_ogr = ogr.Geometry(ogr.wkbLinearRing)
@@ -1233,93 +1242,9 @@ class MetashapeTools:
         size = M - m
         size[2] = original_region.size.z
         self.chunk.region.size = size
-        self.chunk.region.rot = Metashape.Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])#original_region.rot
+        self.chunk.region.rot = Metashape.Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
         self.chunk.updateTransform()
         self.doc.save()
-        # ----------
-        # if label == gt.label and self.check_roi():
-        #     for shape in self.chunk.shapes:
-        #         if shape.group.label == 'ROI_layer':
-        #             for vertice in shape.geometry.coordinates[0]:
-        #                 vertice.size = 3
-        #                 new_tmp = self.chunk.shapes.crs.unproject(vertice)
-        #                 new = self.T.inv().mulp(new_tmp)
-        #                 distance01, distance02 = self.estimate_distance_line_region(
-        #                     point=[new.x, new.y, new.z],
-        #                     label=label) #¿?
-        #                 if not 'distance01_max' in locals() or not 'distance02_max' in locals():
-        #                     distance01_max = 0
-        #                     distance02_max = 0
-        #                 distance01_max = max(distance01_max, distance01)
-        #                 distance02_max = max(distance02_max, distance02)
-        #             size = Metashape.Vector([distance02_max, distance01_max, original_region.size.z])
-        #             self.chunk.region.size = size
-        #             self.chunk.updateTransform()
-        #             self.doc.save()
-        #     del distance01_max, distance02_max
-        # else:
-        #     for shape in self.chunk.shapes:
-        #         if shape.group.label == 'TileROI_layer':
-        #             # set center
-        #             for vertice in shape.geometry.coordinates[0]:
-        #                 new_tmp = self.chunk.shapes.crs.unproject(vertice)
-        #                 new = self.T.inv().mulp(new_tmp)
-        #                 if not 'M' in locals() or not 'm' in locals():
-        #                     M = Metashape.Vector([new.x, new.y, new.z])
-        #                     m = Metashape.Vector([new.x, new.y, new.z])
-        #                 M[0] = max(M[0], new.x)
-        #                 M[1] = max(M[1], new.y)
-        #                 M[2] = max(M[2], new.z)
-        #                 m[0] = min(m[0], new.x)
-        #                 m[1] = min(m[1], new.y)
-        #                 m[2] = min(m[2], new.z)
-        #             # M = self.estimate_region_coords(x=M[0], y=M[1], z=M[2], plane='center').tolist()
-        #             # m = self.estimate_region_coords(x=m[0], y=m[1], z=m[2], plane='center').tolist()
-        #             center = (M + m) / 2
-        #             center = self.estimate_region_coords(x=center[0], y=center[1], z=center[2], plane='center').tolist()
-        #             self.chunk.region.center = center
-        #             self.chunk.updateTransform()
-        #             self.doc.save()
-        #             # set size
-        #             size = M - m
-        #
-        #             # for vertice in shape.geometry.coordinates[0]:
-        #             #     # vertice.size = 3
-        #             #     new_tmp = self.chunk.shapes.crs.unproject(vertice)
-        #             #     new = self.T.inv().mulp(new_tmp)
-        #             #     distance01, distance02 = self.estimate_distance_line_region(
-        #             #         point=[new.x, new.y, new.z],
-        #             #         label=label)
-        #             #     if not 'distance01_max' in locals() or not 'distance02_max' in locals():
-        #             #         distance01_max = 0
-        #             #         distance02_max = 0
-        #             #     distance01_max = max(distance01_max, distance01)
-        #             #     distance02_max = max(distance02_max, distance02)
-        #             # size = Metashape.Vector([distance02_max, distance01_max, original_region.size.z])
-        #             self.chunk.region.size = size
-        #             self.chunk.updateTransform()
-        #             self.doc.save()
-        #             # del distance01_max, distance02_max
-        #         # self.set_chunk(gt.label)
-        #             # m = Metashape.Vector([10E+10, 10E+10, 10E+10])
-        #             # M = -m
-        #             # for vertice in shape.geometry.coordinates[0]:
-        #             #     vertice.size = 3
-        #             #     new = self.chunk.shapes.crs.unproject(vertice)
-        #             #     new = self.T.inv().mulp(new)
-        #             #     m[0] = min(m[0], new.x)
-        #             #     m[1] = min(m[1], new.y)
-        #             #     M[0] = max(M[0], new.x)
-        #             #     M[1] = max(M[1], new.y)
-        #             # center = (M + m) / 2
-        #             # # center[2] = ((-1 * a * center[0]) - (b * center[1]) - d) / c
-        #             # self.chunk.region.center = center
-        #             # size = M - m
-        #             # size[2] = original_region.size.z
-        #             # self.chunk.region.size = size
-        #             # self.chunk.region.rot = original_region.rot #Metashape.Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-        #             # self.chunk.updateTransform()
-        #             # self.doc.save()
 
     def set_z_shape(self, label_shape, label=gt.label):
         self.set_chunk(label)
@@ -1333,17 +1258,7 @@ class MetashapeTools:
                 for vertice in shape.geometry.coordinates[0]:
                     vertice = self.chunk.shapes.crs.unproject(vertice)
                     vertice = self.T.inv().mulp(vertice)
-                    # vertice[2] = ((-1 * a * vertice[0]) - (b * vertice[1]) - d) / c
-                    # plane = (normal, d)
-                    # norma = numpy.linalg.norm(normal)
-                    # v_norm = normal / norma
-                    # point = numpy.array((vertice[0], vertice[1], vertice[2]))
-                    # line = numpy.copy(point), v_norm
-                    # lamb = -(numpy.dot(line[0], plane[0]) + plane[1]) / numpy.dot(line[1], plane[0])
-                    # v = line[0] + lamb*line[1]
-                    # vertice = Metashape.Vector([v[0], v[1], v[2]])
                     v = self.estimate_region_coords(x=vertice[0], y=vertice[1], z=vertice[2], plane='top')
-                    # self.set_chunk(label)
                     vertice = Metashape.Vector([v[0], v[1], v[2]])
                     vertice = self.T.mulp(vertice)
                     vertice = self.chunk.shapes.crs.project(vertice)

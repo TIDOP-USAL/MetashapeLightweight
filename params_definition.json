@@ -930,30 +930,6 @@
 			"spanish": "Requisitos de instalacion",
 			"english": "Install requirements"
 		},
-		"CondaPath": {
-			"text":{
-				"spanish": "Carpeta de instalacion de conda/miniconda",
-				"english": "Conda/miniconda installation folder"
-			},
-			"definition":{
-				"spanish": "Carpeta de instalacion de conda/miniconda",
-				"english": "Conda/miniconda installation folder"
-			},
-			"type": "folder",
-			"default": ""
-		},
-		"Env": {
-			"text":{
-				"spanish": "Nombre del entorno conda",
-				"english": "Conda environment name"
-			},
-			"definition":{
-				"spanish": "Nombre del entorno conda",
-				"english": "Conda environment name"
-			},
-			"type": "string",
-			"default": ""
-		},
 		"Geoid": {
 			"text":{
 				"spanish": "Carpeta con los modelos del geoide",
@@ -964,6 +940,19 @@
 				"english": "Geoids folder"
 			},
 			"type": "folder",
+			"default": ""
+		},
+		"SelectedGPUs": {
+			"text":{
+				"spanish": "GPUs activadas",
+				"english": "Activated GPUs"
+			},
+			"definition":{
+				"spanish": "Selección de GPUs activadas para el proceso",
+				"english": "Selection of activated GPUs for processing"
+			},
+			"type": "string",
+			"len": 1000,
 			"default": ""
 		}
 	}
