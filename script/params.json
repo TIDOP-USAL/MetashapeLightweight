@@ -74,6 +74,7 @@
     },
     "InstallRequirement": {
         "Geoid": "C:/Program Files/Agisoft/Metashape Pro/geoids",
-        "SelectedGPUs": ""
+        "SelectedGPUs": "",
+        "UseCPU": "False"
     }
 }

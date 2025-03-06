@@ -83,15 +83,16 @@ class MetashapeTools:
                         binary = binary + '0'
         if binary == '0b':
             Metashape.app.gpu_mask = 0
-            Metashape.app.cpu_enable = True
         else:
             Metashape.app.gpu_mask = int(binary, 2)
-            Metashape.app.cpu_enable = False
+        Metashape.app.cpu_enable = eval(gt.params.get("InstallRequirement")["UseCPU"])
         gt.update_log(text='Metashape checks:\n' +
-                           'Valid license = ' + str(Metashape.License.valid) + '\n' +
+                           'Valid license = ' + str(Metashape.license.valid) + '\n' +
                            'Activated license = ' + str(Metashape.app.activated) + '\n' +
                            'Version = ' + str(Metashape.app.version) + '\n' +
-                           'Selected GPUs = ' + text_gpus)
+                           'Selected GPUs = ' + text_gpus + '\n' +
+                           'Use CPU = ' + str(Metashape.app.cpu_enable)
+                      )
         file = os.path.normpath(gt.params_file)
         with open(file) as config_file:
             parsed = json.load(config_file)
