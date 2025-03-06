@@ -948,12 +948,24 @@
 				"english": "Activated GPUs"
 			},
 			"definition":{
-				"spanish": "Selección de GPUs activadas para el proceso",
+				"spanish": "Seleccion de GPUs activadas para el proceso",
 				"english": "Selection of activated GPUs for processing"
 			},
 			"type": "string",
 			"len": 1000,
 			"default": ""
+		},
+		"UseCPU": {
+			"text":{
+				"spanish": "Utilizar la CPU",
+				"english": "Use CPU"
+			},
+			"definition": {
+				"spanish": "Utilizar la CPU al realizar un procesamiento acelerado por GPU",
+				"english": "Use CPU when performing GPU accelerated processing"
+			},
+			"type": "boolean",
+			"default": "False"
 		}
 	}
 }

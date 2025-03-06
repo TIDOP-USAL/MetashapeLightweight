@@ -26,6 +26,8 @@ def main():
     from MshBigPsxDialog import MshBigPsxDialog
     dialog = MshBigPsxDialog(settings,
                              parametersManager)
+    if not dialog.initialize():
+        exit()
     dialog.show()
     app.exec()
 

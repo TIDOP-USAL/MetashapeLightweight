@@ -3,9 +3,11 @@
 # Ana del Campo Sanchez, ana.delcampo@usal.es
 
 import os
+import math
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QApplication, QMessageBox, QDialog, QFileDialog, QPushButton, QComboBox
-from PyQt5.QtCore import QDir, QFileInfo, QFile
+from PyQt5.QtWidgets import (QApplication, QMessageBox, QDialog, QFileDialog, QPushButton,
+                             QComboBox, QTableWidget, QTableWidgetItem)
+from PyQt5.QtCore import QDir, QFileInfo, QFile, Qt
 from gui.VPyFormGenerator.VPyGUIGenerator import VPyGUIGenerator
 from gui.CameraCalibration import CameraCalibration
 from gui.InstallRequirement import InstallRequirement
@@ -21,6 +23,7 @@ import json
 import Tools
 import shutil
 import subprocess
+from script.lib_metashape import *
 
 class MshBigPsxDialog(QDialog):
     """Employee dialog."""
@@ -33,7 +36,6 @@ class MshBigPsxDialog(QDialog):
         loadUi("MshBigPsxDialog.ui", self)
         self.settings = settings
         self.parametersManager = parametersManager
-        self.initialize()
 
     def addProject(self):
         title = "Select Project File"
@@ -60,6 +62,87 @@ class MshBigPsxDialog(QDialog):
         return
 
     def initialize(self):
+        mdl = self.gpusTableWidget.model()
+        # mdl.removeRows(0, mdl.rowCount())
+        # mdl.removeColumns(0, mdl.columnCount())
+        headers = gui_defines.gpus_header
+        self.gpusTableWidget.setColumnCount(len(headers))
+        self.gpusTableWidget.verticalHeader().setVisible(False)
+        self.gpusTableWidget.horizontalHeader().setVisible(False)
+        # self.gpusTableWidget.setStyleSheet("QHeaderView::section { color:black; background : lightGray; }")
+        # for i in range(len(headers)):
+        #     header_item = QTableWidgetItem(headers[i])
+        #     self.gpusTableWidget.setHorizontalHeaderItem(i, header_item)
+        gpus = get_gpus()
+        self.gpu_by_id = {}
+        for gpu in gpus:
+            if not gui_defines.METASHAPE_API_GPU_NAME_TAG in gpu:
+                msgBox = QMessageBox(self)
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle(self.windowTitle())
+                text = ("No GPU {} tag in values returned by metashape api").format(gui_defines.METASHAPE_API_GPU_NAME_TAG)
+                text += ("\nContact: {}").format(gui_defines.AUTHOR_MAIL)
+                msgBox.setText(text)
+                msgBox.exec_()
+                return False
+            if not gui_defines.METASHAPE_API_GPU_VENDOR_TAG in gpu:
+                msgBox = QMessageBox(self)
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle(self.windowTitle())
+                text = ("No GPU {} tag in values returned by metashape api").format(gui_defines.METASHAPE_API_GPU_VENDOR_TAG)
+                text += ("\nContact: {}").format(gui_defines.AUTHOR_MAIL)
+                msgBox.setText(text)
+                msgBox.exec_()
+                return False
+            if not gui_defines.METASHAPE_API_GPU_MEM_SIZE_TAG in gpu:
+                msgBox = QMessageBox(self)
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle(self.windowTitle())
+                text = ("No GPU {} tag in values returned by metashape api").format(gui_defines.METASHAPE_API_GPU_MEM_SIZE_TAG)
+                text += ("\nContact: {}").format(gui_defines.AUTHOR_MAIL)
+                msgBox.setText(text)
+                msgBox.exec_()
+                return False
+            if not gui_defines.METASHAPE_API_GPU_CLOCK_TAG in gpu:
+                msgBox = QMessageBox(self)
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle(self.windowTitle())
+                text = ("No GPU {} tag in values returned by metashape api").format(gui_defines.METASHAPE_API_GPU_CLOCK_TAG)
+                text += ("\nContact: {}").format(gui_defines.AUTHOR_MAIL)
+                msgBox.setText(text)
+                msgBox.exec_()
+                return False
+            if not gui_defines.METASHAPE_API_GPU_COMPUTE_UNITS_TAG in gpu:
+                msgBox = QMessageBox(self)
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle(self.windowTitle())
+                text = ("No GPU {} tag in values returned by metashape api").format(gui_defines.METASHAPE_API_GPU_COMPUTE_UNITS_TAG)
+                text += ("\nContact: {}").format(gui_defines.AUTHOR_MAIL)
+                msgBox.setText(text)
+                msgBox.exec_()
+                return False
+            gpu_mem_size = str(math.floor(gpu[gui_defines.METASHAPE_API_GPU_MEM_SIZE_TAG] / 1024 / 1024))
+            gpu_mem_clock = str(gpu[gui_defines.METASHAPE_API_GPU_CLOCK_TAG])
+            gpu_mem_compute_units = str(gpu[gui_defines.METASHAPE_API_GPU_COMPUTE_UNITS_TAG])
+            gpu_name = gpu[gui_defines.METASHAPE_API_GPU_NAME_TAG]
+            gpu_vendor = gpu[gui_defines.METASHAPE_API_GPU_VENDOR_TAG]
+            gpu_id = (gpu_name + ' (' + gpu_mem_size + ' MB, ' + gpu_mem_compute_units
+                      + ' compute units, ' + gpu_mem_clock + ' MHz) - ' + gpu_vendor)
+            self.gpu_by_id[gpu_id] = gpu
+            rowPosition = self.gpusTableWidget.rowCount()
+            self.gpusTableWidget.insertRow(rowPosition)
+            gpu_item = QTableWidgetItem(gpu_id)
+            gpu_item.setTextAlignment(Qt.AlignCenter)
+            gpu_item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
+            gpu_item.setCheckState(Qt.Unchecked)
+            # if point.enabled_by_position_type[position_type]:
+            #     position_type_item.setCheckState(QtCore.Qt.Checked)
+            # else:
+            #     position_type_item.setCheckState(QtCore.Qt.Unchecked)
+            column_pos = 0
+            self.gpusTableWidget.setItem(rowPosition, column_pos, gpu_item)
+        for i in range(len(headers)):
+            self.gpusTableWidget.resizeColumnToContents(i)
         self.path = self.settings.value("last_path")
         current_dir = QDir.current()
         if not self.path:
@@ -84,14 +167,14 @@ class MshBigPsxDialog(QDialog):
                     self.geoids_path = ''
         self.settings.setValue("geoids_path", self.geoids_path)
         self.settings.sync()
-        self.conda_path = self.settings.value("conda_path")
-        if self.conda_path:
-            self.conda_path = os.path.normpath(self.conda_path)
-            if not current_dir.exists(self.conda_path):
-                self.conda_path = None
-        else:
-            self.conda_path = ''
-        self.settings.setValue("conda_path", self.conda_path)
+        # self.conda_path = self.settings.value("conda_path")
+        # if self.conda_path:
+        #     self.conda_path = os.path.normpath(self.conda_path)
+        #     if not current_dir.exists(self.conda_path):
+        #         self.conda_path = None
+        # else:
+        #     self.conda_path = ''
+        # self.settings.setValue("conda_path", self.conda_path)
         self.settings.sync()
         self.openProjectPushButton.setEnabled(False)
         self.closeProjectPushButton.setEnabled(False)
@@ -149,6 +232,7 @@ class MshBigPsxDialog(QDialog):
         self.processPushButton.setEnabled(False)
         self.object_by_name = {}
         self.object_dlg_by_name = {}
+        return True
 
     def closeProject(self):
         if not self.selectProjectFile:
@@ -226,20 +310,20 @@ class MshBigPsxDialog(QDialog):
                             return str_error
                 values[attributes_in_definitions] = value
             if class_name == gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT:
-                conda_path = values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG]
-                if conda_path:
-                    conda_path = os.path.normpath(conda_path)
-                    if current_dir.exists(conda_path):
-                        if self.conda_path != conda_path:
-                            self.conda_path = conda_path
-                            self.settings.setValue("conda_path", self.conda_path)
-                            self.settings.sync()
-                    else:
-                        if self.conda_path:
-                            values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG] = self.conda_path
-                else:
-                    if self.conda_path:
-                        values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG] = self.conda_path
+                # conda_path = values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG]
+                # if conda_path:
+                #     conda_path = os.path.normpath(conda_path)
+                #     if current_dir.exists(conda_path):
+                #         if self.conda_path != conda_path:
+                #             self.conda_path = conda_path
+                #             self.settings.setValue("conda_path", self.conda_path)
+                #             self.settings.sync()
+                #     else:
+                #         if self.conda_path:
+                #             values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG] = self.conda_path
+                # else:
+                #     if self.conda_path:
+                #         values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG] = self.conda_path
                 geoids_path = values[gui_defines.REQUIREMENTS_GEOIDS_PATH_TAG]
                 if geoids_path:
                     geoids_path = os.path.normpath(geoids_path)
@@ -302,6 +386,8 @@ class MshBigPsxDialog(QDialog):
             object_title = self.object_by_name[class_name].get_text()
             obj_push_button = QPushButton(object_title)
             self.objectsGridLayout.addWidget(obj_push_button, row_in_grid_layout, column_in_grid_layout)
+            if class_name == "InstallRequirement":
+                yo = 1
             obj_dlg = VPyGUIGenerator.create_gui(self.object_by_name[class_name])
             obj_dlg.setWindowTitle(object_title)
             text_by_propierty = self.object_by_name[class_name].get_text_by_propierty()
@@ -470,6 +556,30 @@ class MshBigPsxDialog(QDialog):
         return
 
     def saveProject(self):
+        selected_gpus = []
+        selected_gpus_as_string = ''
+        column = 0
+        # rowCount() This property holds the number of rows in the table
+        for row in range(self.gpusTableWidget.rowCount()):
+            # item(row, 0) Returns the item for the given row and column if one has been set; otherwise returns nullptr.
+            gpu_item = self.gpusTableWidget.item(row, column)
+            if gpu_item.checkState():
+                selected_gpus.append(self.gpu_by_id[gpu_item.text()])
+        selected_gpus_as_string = str(selected_gpus)
+        # if len(selected_gpus) == 0:
+        #     msgBox = QMessageBox(self)
+        #     msgBox.setIcon(QMessageBox.Information)
+        #     msgBox.setWindowTitle(self.windowTitle())
+        #     msgBox.setText("Select one GPU at least")
+        #     msgBox.exec_()
+        #     return
+        inst_req_values = self.object_by_name[gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT].get_values_as_dictionary()
+        if self.cpuCheckBox.isChecked():
+            inst_req_values[gui_defines.INSTALL_REQUERIMENTS_OBJECT_USE_CPU_TAG] =True
+        else:
+            inst_req_values[gui_defines.INSTALL_REQUERIMENTS_OBJECT_USE_CPU_TAG] =False
+        inst_req_values[gui_defines.INSTALL_REQUERIMENTS_OBJECT_SELECTED_GPUS_TAG] = selected_gpus_as_string
+        self.object_by_name[gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT].set_values_from_dictionary(inst_req_values)
         self.processPushButton.setEnabled(False)
         output_file = self.projectLineEdit.text()
         if not output_file:
