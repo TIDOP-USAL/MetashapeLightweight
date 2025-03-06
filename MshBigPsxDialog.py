@@ -565,7 +565,8 @@ class MshBigPsxDialog(QDialog):
             gpu_item = self.gpusTableWidget.item(row, column)
             if gpu_item.checkState():
                 selected_gpus.append(self.gpu_by_id[gpu_item.text()])
-        selected_gpus_as_string = str(selected_gpus)
+        if len(selected_gpus) > 0:
+            selected_gpus_as_string = str(selected_gpus)
         # if len(selected_gpus) == 0:
         #     msgBox = QMessageBox(self)
         #     msgBox.setIcon(QMessageBox.Information)
