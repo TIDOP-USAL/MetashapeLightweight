@@ -386,7 +386,7 @@ class MshBigPsxDialog(QDialog):
             object_title = self.object_by_name[class_name].get_text()
             obj_push_button = QPushButton(object_title)
             self.objectsGridLayout.addWidget(obj_push_button, row_in_grid_layout, column_in_grid_layout)
-            if class_name == "InstallRequirement":
+            if class_name == "SplitTile":
                 yo = 1
             obj_dlg = VPyGUIGenerator.create_gui(self.object_by_name[class_name])
             obj_dlg.setWindowTitle(object_title)

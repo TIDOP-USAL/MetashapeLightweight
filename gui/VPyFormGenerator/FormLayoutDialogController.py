@@ -102,16 +102,30 @@ class FormLayoutDialogController(QtWidgets.QDialog):
                     w.setIcon(QtGui.QIcon(f"{FormLayoutDialogController.script_location}/icons/add.png"))
                     
             is_file_widget_button = w.property("for_file_widget")
+            # if is_file_widget_button != None:
+            #     w.clicked.connect(self.fileWidgetButtonClicked)
+            #     file_widget = self.get_widget(w.property("for_file_widget"))
+            #     type = file_widget.property("type")
+            #     if type == None or type.lower() not in("save", "folder"):
+            #         type = "open"
+            #     w.setIcon(QtGui.QIcon(f"{FormLayoutDialogController.script_location}/icons/{type}.png"))
+            #     w.setProperty("type", type)
+            #     filters = file_widget.property("filters")
+            #     w.setProperty("filters", filters)
+            #     continue
             if is_file_widget_button != None:
                 w.clicked.connect(self.fileWidgetButtonClicked)
                 file_widget = self.get_widget(w.property("for_file_widget"))
                 type = file_widget.property("type")
-                if type == None or type.lower() not in("save", "folder"):
+                icon_name = type
+                if type == None or type.lower() not in("save", "folder", "any"):
                     type = "open"
-                w.setIcon(QtGui.QIcon(f"{FormLayoutDialogController.script_location}/icons/{type}.png"))
+                if type.lower() == "any":
+                    icon_name = "save"
+                w.setIcon(QtGui.QIcon(f"{FormLayoutDialogController.script_location}/icons/{icon_name}.png"))
                 w.setProperty("type", type)
                 filters = file_widget.property("filters")
-                w.setProperty("filters", filters)                
+                w.setProperty("filters", filters)
                 continue
             
             is_image_widget_link = w.property("for_image_widget")
@@ -388,9 +402,16 @@ class FormLayoutDialogController(QtWidgets.QDialog):
             filename, _ = QtWidgets.QFileDialog.getSaveFileName(self,widget_name.capitalize(), "", filters)
         elif type == "folder":
             filename = QtWidgets.QFileDialog.getExistingDirectory(self,widget_name.capitalize(), "")
+        elif type == "any":
+            dlg = QtWidgets.QFileDialog(self, widget_name.capitalize())
+            # dlg.setDirectory(self.last_path)
+            dlg.setFileMode(QtWidgets.QFileDialog.AnyFile)
+            dlg.setNameFilter(filters)
+            if dlg.exec_():
+                file_names = dlg.selectedFiles()
+                filename = file_names[0]
         else:
             filename, _ = QtWidgets.QFileDialog.getOpenFileName(self,widget_name.capitalize(), "", filters)
-        
         line_edit = self.get_widget(widget_name)
         if line_edit != None:
             line_edit.setText(filename)

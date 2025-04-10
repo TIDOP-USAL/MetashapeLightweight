@@ -195,6 +195,7 @@ class ParametersManager:
             propiertyIsFolder = False
             propiertyIsFileOpen = False
             propiertyIsFileSave = False
+            propiertyIsFileAny = False
             propiertyIsInteger = False
             propiertyIsValuesList = False
             propiertyIsBoolean = False
@@ -303,6 +304,16 @@ class ParametersManager:
                     propierty_text = ('widget:file, type:save, toolTip:{}'.format(propierty_definition))
                 else:
                     propierty_text = ('widget:file, type:save, toolTip:{}, filters: {}'.
+                                      format(propierty_definition, str_propierty_formats))
+            elif propierty_type == gui_defines.GUI_CLASSES_PROPIERTY_TYPE_FILE_ANY_TAG:
+                propiertyIsFileAny = True
+                str_propierty_formats = None
+                if propierty_field_formats in json_propierty_content:
+                    str_propierty_formats = json_propierty_content[propierty_field_formats]
+                if not str_propierty_formats:
+                    propierty_text = ('widget:file, type:any, toolTip:{}'.format(propierty_definition))
+                else:
+                    propierty_text = ('widget:file, type:any, toolTip:{}, filters: {}'.
                                       format(propierty_definition, str_propierty_formats))
             f.write('\n\t@property\n')
             f.write('\tdef {}(self):\n'.format(propierty_name))
@@ -418,6 +429,10 @@ class ParametersManager:
             #         break
             # if not class_is_valid:
             #     continue
+            # debug
+            if class_name ==  "SplitTile":
+                yo = 1
+            # debug
             json_class_content = json_content[class_name]
             str_error = self.build_parameter_file(class_name,
                                                   language,

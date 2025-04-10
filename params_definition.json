@@ -664,7 +664,7 @@
 				"spanish": "Fichero de la malla editado por el usario",
 				"english": "Grid file edited by user"
 			},
-			"type": "file open",
+			"type": "file any",
 			"formats": "*.gpkg",
 			"default": ""
 		},
