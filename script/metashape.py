@@ -709,8 +709,6 @@ class MetashapeTools:
                 new_shape.geometry = Metashape.Geometry.Polygon(polygon_2import)
                 new_shape.boundary_type = Metashape.Shape.BoundaryType.NoBoundary
                 self.doc.save()
-        self.set_z_shape(label_shape=label_shape)
-        self.doc.save()
         gt.update_log('Imported tiled grid shapes from file =\n' + path)
 
     def initial_psx(self, label=gt.label):
