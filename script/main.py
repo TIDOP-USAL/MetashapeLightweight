@@ -62,11 +62,11 @@ if eval(gt.params.get("Workflow")["Split"]):
         if eval(gt.params.get("SplitTile")["MergeOrthomosaics"]):
             mt.export_orthomosaic()
     elif gt.params.get("SplitTile")["MergeMethod"] == 'OsgeoLaspy':
-        if eval(gt.params.get("SplitTile")["MergePointClouds"]):
+        if eval(gt.params.get("Workflow")["PointCloud"]) and eval(gt.params.get("SplitTile")["MergePointClouds"]):
             mt.merge_pointclouds()
-        if eval(gt.params.get("SplitTile")["MergeElevations"]):
+        if eval(gt.params.get("Workflow")["DEMs"]) and eval(gt.params.get("SplitTile")["MergeElevations"]):
             mt.merge_dems()
-        if eval(gt.params.get("SplitTile")["MergeOrthomosaics"]):
+        if eval(gt.params.get("Workflow")["Orthomosaic"]) and eval(gt.params.get("SplitTile")["MergeOrthomosaics"]):
             mt.merge_orthomosaic()
 
 if eval(gt.params.get("Workflow")["Report"]):
