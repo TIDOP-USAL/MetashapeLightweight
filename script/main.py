@@ -72,4 +72,5 @@ if eval(gt.params.get("Workflow")["Split"]):
 if eval(gt.params.get("Workflow")["Report"]):
     mt.process_report()
 
+mt.destroy_srs()
 gt.update_log('Complete process DONE!')

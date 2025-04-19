@@ -281,6 +281,9 @@ class MetashapeTools:
         dst_ds = None
         gt.update_log('Created tiled grid shapes = ' + str(tile_count) + ' tiles')
 
+    def destroy_srs(self):
+        del self.project_crs_osgeo, self.shapes_crs_osgeo
+
     def estimate_distance_line_region(self, point, label=gt.label):
         previous_label = self.chunk.label
         self.set_chunk(label)
@@ -1188,14 +1191,15 @@ class MetashapeTools:
             srs_vertical = ogr.osr.SpatialReference()
             srs_vertical.ImportFromEPSG(int(epsg_vertical))
             self.project_crs_osgeo.SetCompoundCS('', srs_horizontal, srs_vertical)
+            del srs_horizontal, srs_vertical
         else:
             self.project_crs_osgeo.ImportFromEPSG(int(epsg))
         if self.chunk.shapes is None:
             self.chunk.shapes = Metashape.Shapes()
-        epsg = 4326
-        self.chunk.shapes.crs = Metashape.CoordinateSystem('EPSG::' + str(epsg))
+        epsg_shapes = 4326
+        self.chunk.shapes.crs = Metashape.CoordinateSystem('EPSG::' + str(epsg_shapes))
         self.shapes_crs_osgeo = ogr.osr.SpatialReference()
-        self.shapes_crs_osgeo.ImportFromEPSG(epsg)
+        self.shapes_crs_osgeo.ImportFromEPSG(epsg_shapes)
 
     def set_region(self, label=gt.label):
         self.set_chunk(label)
