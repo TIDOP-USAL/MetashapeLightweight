@@ -1,8 +1,8 @@
 {
     "Project": {
-        "Label": "test4",
-        "EPSG": "25830+5782",
-        "Path": "D://dataset",
+        "Label": "test02",
+        "EPSG": "25830",
+        "Path": "D:/output",
         "DemGSD": 0.1,
         "OrthoGSD": 0.1
     },
@@ -18,16 +18,16 @@
         "Report": "True"
     },
     "Photo": {
-        "Path": "D://dataset",
+        "Path": "C:/dev/MetashapeLightweight/sample_data/rail2024",
         "LocationAccuracy2D": 0.08,
         "LocationAccuracyHeight": 0.12,
-        "Method": "EXIF",
+        "Method": "CSV",
         "EPSG": "4326",
-        "EoPath": "D://dataset//eo_4326.csv"
+        "EoPath": "C:/dev/MetashapeLightweight/sample_data/rail2024/eo_4326.csv"
     },
     "ROI": {
-        "Path": "D://dataset//roi_4326.shp",
-        "Method": "SHP"
+        "Path": "",
+        "Method": "0"
     },
     "CameraCalibration": {
         "f": "True",
@@ -43,22 +43,22 @@
         "p2": "True"
     },
     "OptimizeAlignment": {
-        "Method": "0",
-		"EPSG": "25830+5782",
-		"Path": "D://dataset//gcp_25830-5782.csv",
-		"Accuracy": "Low",
-		"ReferencePreselection": "Source",
-		"TiePointLimit": 10000
+        "Method": "PSX",
+        "EPSG": "",
+        "Path": "",
+        "Accuracy": "Low",
+        "ReferencePreselection": "Source",
+        "TiePointLimit": 10000
     },
     "SplitTile": {
         "TileSize": 20,
         "TileSizeBuffer": 10,
-        "Method": "0",
-        "Path": "D://dataset//tile_grid_manual.gpkg",
+        "Method": "AUTO",
+        "Path": "",
         "MergeMethod": "OsgeoLaspy",
-        "MergePointClouds": "True",
-        "MergeElevations": "True",
-        "MergeOrthomosaics": "True",
+        "MergePointClouds": "False",
+        "MergeElevations": "False",
+        "MergeOrthomosaics": "False",
         "MergedDEM": "DSM"
     },
     "PointCloud": {
@@ -67,13 +67,14 @@
         "ConfidenceRangeMin": 0,
         "ConfidenceRangeMax": 0,
         "GroundMaxAngle": 10,
-		"GroundMaxDistance": 10,
-		"GroundMaxSlope": 20,
-		"GroundCellSize": 5,
-		"GroundErosionRadius": 0
+        "GroundMaxDistance": 10,
+        "GroundMaxSlope": 20,
+        "GroundCellSize": 5,
+        "GroundErosionRadius": 0
     },
     "InstallRequirement": {
-        "Env": "C:/miniconda/envs/metashape",
-        "Geoid": "C:/Program Files/Agisoft/Metashape Pro/geoids"
+        "Geoid": "C:/Program Files/Agisoft/Metashape Pro/geoids",
+        "SelectedGPUs": "[{'name': 'NVIDIA RTX A2000 12GB', 'vendor': 'Nvidia Corporation', 'version': '', 'compute_units': 26, 'mem_size': 12878086144, 'clock': 1200, 'pci_bus_id': 101, 'pci_device_id': 0}]",
+        "UseCPU": "False"
     }
 }

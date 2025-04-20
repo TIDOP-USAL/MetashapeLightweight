@@ -1,0 +1,80 @@
+{
+    "Project": {
+        "Label": "test04",
+        "EPSG": "25830",
+        "Path": "D:/output",
+        "DemGSD": 0.1,
+        "OrthoGSD": 0.1
+    },
+    "Workflow": {
+        "CleanPrevious": "True",
+        "Initialize": "True",
+        "Preprocess": "True",
+        "Optimize": "True",
+        "Split": "False",
+        "PointCloud": "False",
+        "DEMs": "False",
+        "Orthomosaic": "False",
+        "Report": "False"
+    },
+    "Photo": {
+        "Path": "C:/dev/MetashapeLightweight/sample_data/rail2024",
+        "LocationAccuracy2D": 0.08,
+        "LocationAccuracyHeight": 0.12,
+        "Method": "EXIF",
+        "EPSG": "4326",
+        "EoPath": ""
+    },
+    "ROI": {
+        "Path": "C:/dev/MetashapeLightweight/sample_data/rail2024/roi_4326.shp",
+        "Method": "SHP"
+    },
+    "CameraCalibration": {
+        "f": "True",
+        "cx": "True",
+        "cy": "True",
+        "k1": "True",
+        "k2": "True",
+        "k3": "True",
+        "k4": "False",
+        "b1": "False",
+        "b2": "False",
+        "p1": "True",
+        "p2": "True"
+    },
+    "OptimizeAlignment": {
+        "Method": "PSX",
+        "EPSG": "25830+5782",
+        "Path": "C:/dev/MetashapeLightweight/sample_data/rail2024/gcp_25830-5782.csv",
+        "Accuracy": "Low",
+        "ReferencePreselection": "Source",
+        "TiePointLimit": 10000
+    },
+    "SplitTile": {
+        "TileSize": 20,
+        "TileSizeBuffer": 10,
+        "Method": "AUTO",
+        "Path": "",
+        "MergeMethod": "OsgeoLaspy",
+        "MergePointClouds": "False",
+        "MergeElevations": "False",
+        "MergeOrthomosaics": "False",
+        "MergedDEM": "DSM"
+    },
+    "PointCloud": {
+        "Quality": "Low",
+        "FilterMode": "Aggressive",
+        "ConfidenceRangeMin": 0,
+        "ConfidenceRangeMax": 0,
+        "GroundMaxAngle": 10,
+        "GroundMaxDistance": 10,
+        "GroundMaxSlope": 20,
+        "GroundCellSize": 5,
+        "GroundErosionRadius": 0
+    },
+    "InstallRequirement": {
+        "Geoid": "C:/Program Files/Agisoft/Metashape Pro/geoids",
+        "SelectedGPUs": "[{'name': 'NVIDIA RTX A2000 12GB', 'vendor': 'Nvidia Corporation', 'version': '', 'compute_units': 26, 'mem_size': 12878086144, 'clock': 1200, 'pci_bus_id': 101, 'pci_device_id': 0}]",
+        "UseCPU": "False"
+    }
+}

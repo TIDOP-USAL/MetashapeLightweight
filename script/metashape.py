@@ -609,8 +609,12 @@ class MetashapeTools:
             else:
                 gt.update_log('ERROR: No csv file with external orientations found.')
                 raise SystemExit(0)
-        else:
-            self.chunk.addPhotos(photos)
+        elif gt.params.get("Photo")["Method"] == 'NONE':
+            self.chunk.addPhotos(
+                filenames=photos,
+                load_reference=False,
+                strip_extensions=False,
+            )
         self.chunk.camera_location_accuracy = self.photos_location_accuracy
         self.set_crs_definition()
         self.doc.save()
@@ -1175,11 +1179,11 @@ class MetashapeTools:
         self.project_crs = Metashape.CoordinateSystem('EPSG::' + epsg)
         self.chunk.crs = self.project_crs
         self.chunk.crs.init('EPSG::' + epsg)
-        if not gt.params.get("Photo")["EPSG"] == "0":
+        if not gt.params.get("Photo")["EPSG"] == "":
             self.photos_crs = Metashape.CoordinateSystem('EPSG::' + gt.params.get("Photo")["EPSG"])
             self.chunk.camera_crs = self.photos_crs
             self.chunk.camera_crs.init('EPSG::' + gt.params.get("Photo")["EPSG"])
-        if not gt.params.get("OptimizeAlignment")["EPSG"] == "0":
+        if not gt.params.get("OptimizeAlignment")["EPSG"] == "":
             self.gcp_crs = Metashape.CoordinateSystem('EPSG::' + gt.params.get("OptimizeAlignment")["EPSG"])
             self.chunk.marker_crs = self.gcp_crs
             self.chunk.marker_crs.init('EPSG::' + gt.params.get("OptimizeAlignment")["EPSG"])

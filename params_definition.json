@@ -1,81 +1,5 @@
 {
 	"Language": "spanish",
-	"Project": {
-		"text":{
-			"spanish": "Proyecto",
-			"english": "Project"
-		},
-		"Label": {
-			"text":{
-				"spanish": "Etiqueta",
-				"english": "Label"
-			},
-			"definition":{
-				"spanish": "Etiqueta con la que se nombraran los productos resultantes",
-				"english": "Label to be used to name the resulting products"
-			},
-			"type": "string",
-			"len": 50,
-			"default": "Example project"
-		},
-		"EPSG": {
-			"text":{
-				"spanish": "Codigo EPSG",
-				"english": "EPSG code"
-			},
-			"definition": {
-				"spanish": "Codigo EPSG con el que se exportaran los productos resultantes",
-				"english": "EPSG code under which the resulting products are to be exported"
-			},
-			"type": "string",
-			"len": 11,
-			"default": "25830+5782"
-		},
-		"Path": {
-			"text":{
-				"spanish": "Directorio de resultados",
-				"english": "Output path"
-			},
-			"definition": {
-				"spanish": "Ruta del directorio de resultados",
-				"english": "Results directory path"
-			},
-			"type": "folder",
-			"default": ""
-		},
-		"DemGSD": {
-			"text":{
-				"spanish": "GSD para MDT y MDS en metros",
-				"english": "GSD for DTM and DSM in meters"
-			},
-			"definition": {
-				"spanish": "Resolucion en metros con la que se exportaran el modelo digital de superficies y del terreno (0 para maxima posible)",
-				"english": "Resolution in metres at which the digital surface and terrain model will be exported (0 for maximum possible)."
-			},
-			"type": "real",
-			"decimals": 3,
-			"minimum": 0.0,
-			"maximum": 2.00,
-			"singleStep": 0.01,
-			"default": 0.05
-		},
-		"OrthoGSD": {
-			"text":{
-				"spanish": "GSD para ortomosaico en metros",
-				"english": "GSD for Orthomosaic in meters"
-			},
-			"definition": {
-				"spanish": "Resolucion en metros con la que se exportara el ortomosaico (0 para maxima posible)",
-				"english": "Resolution in metres at which the orthomosaic will be exported (0 for maximum possible)"
-			},
-			"type": "real",
-			"decimals": 3,
-			"minimum": 0.0,
-			"maximum": 2.00,
-			"singleStep": 0.01,
-			"default": 0.05
-		}
-	},
 	"Workflow":{
 		"text":{
 			"spanish": "Flujo de trabajo",
@@ -190,6 +114,82 @@
 			"default": "True"
 		}
 	},
+	"Project": {
+		"text":{
+			"spanish": "Proyecto",
+			"english": "Project"
+		},
+		"Label": {
+			"text":{
+				"spanish": "Etiqueta",
+				"english": "Label"
+			},
+			"definition":{
+				"spanish": "Etiqueta con la que se nombraran los productos resultantes",
+				"english": "Label to be used to name the resulting products"
+			},
+			"type": "string",
+			"len": 50,
+			"default": "Example project"
+		},
+		"EPSG": {
+			"text":{
+				"spanish": "Codigo EPSG",
+				"english": "EPSG code"
+			},
+			"definition": {
+				"spanish": "Codigo EPSG con el que se exportaran los productos resultantes",
+				"english": "EPSG code under which the resulting products are to be exported"
+			},
+			"type": "string",
+			"len": 11,
+			"default": "25830+5782"
+		},
+		"Path": {
+			"text":{
+				"spanish": "Directorio de resultados",
+				"english": "Output path"
+			},
+			"definition": {
+				"spanish": "Ruta del directorio de resultados",
+				"english": "Results directory path"
+			},
+			"type": "folder",
+			"default": ""
+		},
+		"DemGSD": {
+			"text":{
+				"spanish": "GSD para MDT y MDS en metros",
+				"english": "GSD for DTM and DSM in meters"
+			},
+			"definition": {
+				"spanish": "Resolucion en metros con la que se exportaran el modelo digital de superficies y del terreno (0 para maxima posible)",
+				"english": "Resolution in metres at which the digital surface and terrain model will be exported (0 for maximum possible)."
+			},
+			"type": "real",
+			"decimals": 3,
+			"minimum": 0.0,
+			"maximum": 2.00,
+			"singleStep": 0.01,
+			"default": 0.05
+		},
+		"OrthoGSD": {
+			"text":{
+				"spanish": "GSD para ortomosaico en metros",
+				"english": "GSD for Orthomosaic in meters"
+			},
+			"definition": {
+				"spanish": "Resolucion en metros con la que se exportara el ortomosaico (0 para maxima posible)",
+				"english": "Resolution in metres at which the orthomosaic will be exported (0 for maximum possible)"
+			},
+			"type": "real",
+			"decimals": 3,
+			"minimum": 0.0,
+			"maximum": 2.00,
+			"singleStep": 0.01,
+			"default": 0.05
+		}
+	},
 	"Photo": {
 		"text":{
 			"spanish": "Imagenes",
@@ -250,6 +250,10 @@
 			},
 			"type": "values",
 			"values": {
+				"NONE": {
+					"spanish": "Orientaciones externas desconocidas",
+					"english": "Unknown external orientations"
+				},
 				"CSV": {
 					"spanish": "Fichero CSV",
 					"english": "CSV file"
@@ -315,7 +319,7 @@
 			},
 			"type": "values",
 			"values": {
-				"0": {
+				"FULL": {
 					"spanish": "Region total con recubrimiento",
 					"english": "Full stereoscopic region"
 				},
