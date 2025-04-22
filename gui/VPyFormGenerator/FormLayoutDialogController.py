@@ -118,10 +118,12 @@ class FormLayoutDialogController(QtWidgets.QDialog):
                 file_widget = self.get_widget(w.property("for_file_widget"))
                 type = file_widget.property("type")
                 icon_name = type
-                if type == None or type.lower() not in("save", "folder", "any"):
+                if type == None or type.lower() not in ("save", "folder", "any"):
                     type = "open"
                 if type.lower() == "any":
                     icon_name = "save"
+                elif type.lower() == "open":
+                    icon_name = "open"
                 w.setIcon(QtGui.QIcon(f"{FormLayoutDialogController.script_location}/icons/{icon_name}.png"))
                 w.setProperty("type", type)
                 filters = file_widget.property("filters")
