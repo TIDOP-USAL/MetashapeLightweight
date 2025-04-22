@@ -114,6 +114,49 @@
 			"default": "True"
 		}
 	},
+	"Installation": {
+		"text":{
+			"spanish": "Requisitos de instalacion",
+			"english": "Install requirements"
+		},
+		"Geoid": {
+			"text":{
+				"spanish": "Carpeta con los modelos del geoide",
+				"english": "Geoids folder"
+			},
+			"definition":{
+				"spanish": "Carpeta con los modelos del geoide",
+				"english": "Geoids folder"
+			},
+			"type": "folder",
+			"default": ""
+		},
+		"SelectedGPUs": {
+			"text":{
+				"spanish": "GPUs activadas",
+				"english": "Activated GPUs"
+			},
+			"definition":{
+				"spanish": "Seleccion de GPUs activadas para el proceso",
+				"english": "Selection of activated GPUs for processing"
+			},
+			"type": "string",
+			"len": 1000,
+			"default": ""
+		},
+		"UseCPU": {
+			"text":{
+				"spanish": "Utilizar la CPU",
+				"english": "Use CPU"
+			},
+			"definition": {
+				"spanish": "Utilizar la CPU al realizar un procesamiento acelerado por GPU",
+				"english": "Use CPU when performing GPU accelerated processing"
+			},
+			"type": "boolean",
+			"default": "False"
+		}
+	},
 	"Project": {
 		"text":{
 			"spanish": "Proyecto",
@@ -190,6 +233,157 @@
 			},
 			"type": "file open",
 			"default": ""
+		}
+	},
+	"SplitTile": {
+		"text":{
+			"spanish": "Division en celdas",
+			"english": "Split tiles"
+		},
+		"TileSize": {
+			"text":{
+				"spanish": "Tamanio de la celda",
+				"english": "Tile Size"
+			},
+			"definition":{
+				"spanish": "Tamanio de las celdas en metros (ej. 50)",
+				"english": "Tile size in meters (i.e. 50)"
+			},
+			"type": "integer",
+			"minimum": 0,
+			"maximum": 1000,
+			"singleStep": 10,
+			"default": 50
+		},
+		"TileSizeBuffer": {
+			"text":{
+				"spanish": "Ampliacion de las celdas",
+				"english": "Buffer tiles"
+			},
+			"definition":{
+				"spanish": "Porcentaje de solape entre celdas (ej. 5)",
+				"english": "Tiles percentage overlaps (ex. 5)"
+			},
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 100,
+			"singleStep": 1,
+			"default": 5
+		},
+		"Method": {
+			"text":{
+				"spanish": "Definicion de la malla de celdas a procesar",
+				"english": "Grid tiles to process definition"
+			},
+			"definition":{
+				"spanish": "Definicion de la malla de celdas a procesar",
+				"english": "Grid tiles to process definition"
+			},
+			"type": "values",
+			"values": {
+				"AUTO": {
+					"spanish": "Automatico para toda la ROI o zona estereoscopica",
+					"english": "Automatic to ROI or stereoscopi area"
+				},
+				"MANUAL": {
+					"spanish": "Malla editada por el usuario",
+					"english": "User edited Grid"
+				}
+			},
+			"default": "Malla editada por el usuario"
+		},
+		"Path": {
+			"text":{
+				"spanish": "Fichero de la malla",
+				"english": "Grid file"
+			},
+			"definition":{
+				"spanish": "Fichero de la malla editado por el usario",
+				"english": "Grid file edited by user"
+			},
+			"type": "file any",
+			"formats": "*.gpkg",
+			"default": ""
+		},
+		"MergeMethod": {
+			"text":{
+				"spanish": "Metodo de union",
+				"english": "Merge method"
+			},
+			"definition":{
+				"spanish": "Estrategia de union de los productos resultantes",
+				"english": "Merged method"
+			},
+			"type": "values",
+			"values": {
+				"Metashape":{
+					"spanish": "Metashape",
+					"english": "Metashape"
+				},
+				"OsgeoLaspy":{
+					"spanish": "OSGeo (raster) y laspy (nubes de puntos)",
+					"english": "OSGeo (raster) and laspy (points clouds)"
+				}
+			},
+			"default": "OSGeo (raster) y laspy (nubes de puntos)"
+		},
+		"MergePointClouds": {
+			"text":{
+				"spanish": "Unir nubes de puntos",
+				"english": "Merge points clouds"
+			},
+			"definition":{
+				"spanish": "Unir nubes de puntos",
+				"english": "Merge points clouds"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"MergeElevations": {
+			"text":{
+				"spanish": "Unir MDEs",
+				"english": "Merge DEMs"
+			},
+			"definition":{
+				"spanish": "Unir MDEs",
+				"english": "Merge DEMs"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"MergeOrthomosaics": {
+			"text":{
+				"spanish": "Unir ortomosaicos",
+				"english": "Merge orthomosaics"
+			},
+			"definition":{
+				"spanish": "Unir ortomosaicos",
+				"english": "Merge orthomosaics"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"MergedDEM": {
+			"text":{
+				"spanish": "Tipo de MDE a unir",
+				"english": "Type of DEM to merge"
+			},
+			"definition":{
+				"spanish": "Tipo de MDE a unir",
+				"english": "Type of DEM to merge"
+			},
+			"type": "values",
+			"values": {
+				"DSM":{
+					"spanish": "Modelo Digital de Superficies (MDS)",
+					"english": "Digital Surface Model (DSM)"
+				},
+				"DTM":{
+					"spanish": "Modelo Digital del Terreno (MDT)",
+					"english": "Digital Terrain Model (DTM)"
+				}
+			},
+			"default": "Modelo Digital de Superficies (MDS)"
 		}
 	},
 	"Photo": {
@@ -425,7 +619,7 @@
 			"singleStep": 1000,
 			"default": 4000
 		},
-		"f": {
+		"CalibrationF": {
 			"text":{
 				"spanish": "Focal",
 				"english": "Focal"
@@ -437,7 +631,7 @@
 			"type": "boolean",
 			"default": "True"
 		},
-		"cx": {
+		"CalibrationCx": {
 			"text":{
 				"spanish": "X PPA",
 				"english": "X PPA"
@@ -449,7 +643,7 @@
 			"type": "boolean",
 			"default": "True"
 		},
-		"cy": {
+		"CalibrationCy": {
 			"text":{
 				"spanish": "Y PPA",
 				"english": "Y PPA"
@@ -461,7 +655,7 @@
 			"type": "boolean",
 			"default": "True"
 		},
-		"k1": {
+		"CalibrationK1": {
 			"text":{
 				"spanish": "k1",
 				"english": "k1"
@@ -473,7 +667,7 @@
 			"type": "boolean",
 			"default": "True"
 		},
-		"k2": {
+		"CalibrationK2": {
 			"text":{
 				"spanish": "k2",
 				"english": "k2"
@@ -485,7 +679,7 @@
 			"type": "boolean",
 			"default": "True"
 		},
-		"k3": {
+		"CalibrationK3": {
 			"text":{
 				"spanish": "k3",
 				"english": "k3"
@@ -497,7 +691,7 @@
 			"type": "boolean",
 			"default": "True"
 		},
-		"k4": {
+		"CalibrationK4": {
 			"text":{
 				"spanish": "k4",
 				"english": "k4"
@@ -509,7 +703,7 @@
 			"type": "boolean",
 			"default": "False"
 		},
-		"b1": {
+		"CalibrationB1": {
 			"text":{
 				"spanish": "Afinidad",
 				"english": "Affinity"
@@ -521,7 +715,7 @@
 			"type": "boolean",
 			"default": "False"
 		},
-		"b2": {
+		"CalibrationB2": {
 			"text":{
 				"spanish": "Asimetria",
 				"english": "Skew"
@@ -533,7 +727,7 @@
 			"type": "boolean",
 			"default": "False"
 		},
-		"p1": {
+		"CalibrationP1": {
 			"text":{
 				"spanish": "p1",
 				"english": "p1"
@@ -545,7 +739,7 @@
 			"type": "boolean",
 			"default": "True"
 		},
-		"p2": {
+		"CalibrationP2": {
 			"text":{
 				"spanish": "p2",
 				"english": "p2"
@@ -556,157 +750,6 @@
 			},
 			"type": "boolean",
 			"default": "True"
-		}
-	},
-	"SplitTile": {
-		"text":{
-			"spanish": "Division en celdas",
-			"english": "Split tiles"
-		},
-		"TileSize": {
-			"text":{
-				"spanish": "Tamanio de la celda",
-				"english": "Tile Size"
-			},
-			"definition":{
-				"spanish": "Tamanio de las celdas en metros (ej. 50)",
-				"english": "Tile size in meters (i.e. 50)"
-			},
-			"type": "integer",
-			"minimum": 0,
-			"maximum": 1000,
-			"singleStep": 10,
-			"default": 50
-		},
-		"TileSizeBuffer": {
-			"text":{
-				"spanish": "Ampliacion de las celdas",
-				"english": "Buffer tiles"
-			},
-			"definition":{
-				"spanish": "Porcentaje de solape entre celdas (ej. 5)",
-				"english": "Tiles percentage overlaps (ex. 5)"
-			},
-			"type": "integer",
-			"minimum": 1,
-			"maximum": 100,
-			"singleStep": 1,
-			"default": 5
-		},
-		"Method": {
-			"text":{
-				"spanish": "Definicion de la malla de celdas a procesar",
-				"english": "Grid tiles to process definition"
-			},
-			"definition":{
-				"spanish": "Definicion de la malla de celdas a procesar",
-				"english": "Grid tiles to process definition"
-			},
-			"type": "values",
-			"values": {
-				"AUTO": {
-					"spanish": "Automatico para toda la ROI o zona estereoscopica",
-					"english": "Automatic to ROI or stereoscopi area"
-				},
-				"MANUAL": {
-					"spanish": "Malla editada por el usuario",
-					"english": "User edited Grid"
-				}
-			},
-			"default": "Malla editada por el usuario"
-		},
-		"Path": {
-			"text":{
-				"spanish": "Fichero de la malla",
-				"english": "Grid file"
-			},
-			"definition":{
-				"spanish": "Fichero de la malla editado por el usario",
-				"english": "Grid file edited by user"
-			},
-			"type": "file any",
-			"formats": "*.gpkg",
-			"default": ""
-		},
-		"MergeMethod": {
-			"text":{
-				"spanish": "Metodo de union",
-				"english": "Merge method"
-			},
-			"definition":{
-				"spanish": "Estrategia de union de los productos resultantes",
-				"english": "Merged method"
-			},
-			"type": "values",
-			"values": {
-				"Metashape":{
-					"spanish": "Metashape",
-					"english": "Metashape"
-				},
-				"OsgeoLaspy":{
-					"spanish": "OSGeo (raster) y laspy (nubes de puntos)",
-					"english": "OSGeo (raster) and laspy (points clouds)"
-				}
-			},
-			"default": "OSGeo (raster) y laspy (nubes de puntos)"
-		},
-		"MergePointClouds": {
-			"text":{
-				"spanish": "Unir nubes de puntos",
-				"english": "Merge points clouds"
-			},
-			"definition":{
-				"spanish": "Unir nubes de puntos",
-				"english": "Merge points clouds"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"MergeElevations": {
-			"text":{
-				"spanish": "Unir MDEs",
-				"english": "Merge DEMs"
-			},
-			"definition":{
-				"spanish": "Unir MDEs",
-				"english": "Merge DEMs"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"MergeOrthomosaics": {
-			"text":{
-				"spanish": "Unir ortomosaicos",
-				"english": "Merge orthomosaics"
-			},
-			"definition":{
-				"spanish": "Unir ortomosaicos",
-				"english": "Merge orthomosaics"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"MergedDEM": {
-			"text":{
-				"spanish": "Tipo de MDE a unir",
-				"english": "Type of DEM to merge"
-			},
-			"definition":{
-				"spanish": "Tipo de MDE a unir",
-				"english": "Type of DEM to merge"
-			},
-			"type": "values",
-			"values": {
-				"DSM":{
-					"spanish": "Modelo Digital de Superficies (MDS)",
-					"english": "Digital Surface Model (DSM)"
-				},
-				"DTM":{
-					"spanish": "Modelo Digital del Terreno (MDT)",
-					"english": "Digital Terrain Model (DTM)"
-				}
-			},
-			"default": "Modelo Digital de Superficies (MDS)"
 		}
 	},
 	"PointCloud": {
@@ -921,49 +964,6 @@
 			"maximum": 2.00,
 			"singleStep": 0.01,
 			"default": 0.05
-		}
-	},
-	"Installation": {
-		"text":{
-			"spanish": "Requisitos de instalacion",
-			"english": "Install requirements"
-		},
-		"Geoid": {
-			"text":{
-				"spanish": "Carpeta con los modelos del geoide",
-				"english": "Geoids folder"
-			},
-			"definition":{
-				"spanish": "Carpeta con los modelos del geoide",
-				"english": "Geoids folder"
-			},
-			"type": "folder",
-			"default": ""
-		},
-		"SelectedGPUs": {
-			"text":{
-				"spanish": "GPUs activadas",
-				"english": "Activated GPUs"
-			},
-			"definition":{
-				"spanish": "Seleccion de GPUs activadas para el proceso",
-				"english": "Selection of activated GPUs for processing"
-			},
-			"type": "string",
-			"len": 1000,
-			"default": ""
-		},
-		"UseCPU": {
-			"text":{
-				"spanish": "Utilizar la CPU",
-				"english": "Use CPU"
-			},
-			"definition": {
-				"spanish": "Utilizar la CPU al realizar un procesamiento acelerado por GPU",
-				"english": "Use CPU when performing GPU accelerated processing"
-			},
-			"type": "boolean",
-			"default": "False"
 		}
 	}
 }

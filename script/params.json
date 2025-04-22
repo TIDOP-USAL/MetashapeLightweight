@@ -2,8 +2,8 @@
     "Project": {
         "Label": "test01",
         "EPSG": "25830",
-        "Path": "D:/output",
-        "RoiMethod": "0",
+        "Path": "./output",
+        "RoiMethod": "FULL",
         "RoiPath": ""
     },
     "Workflow": {
@@ -18,7 +18,7 @@
         "Report": "True"
     },
     "Photo": {
-        "Path": "C:/dev/MetashapeLightweight/sample_data/rail2024",
+        "Path": "./MetashapeLightweight/sample_data/rail2024",
         "LocationAccuracy2D": 0.08,
         "LocationAccuracyHeight": 0.12,
         "Method": "EXIF",
@@ -32,17 +32,17 @@
         "Accuracy": "Low",
         "ReferencePreselection": "Source",
         "TiePointLimit": 10000,
-        "f": "True",
-        "cx": "True",
-        "cy": "True",
-        "k1": "True",
-        "k2": "True",
-        "k3": "True",
-        "k4": "False",
-        "b1": "False",
-        "b2": "False",
-        "p1": "True",
-        "p2": "True"
+        "CalibrationF": "True",
+        "CalibrationCx": "True",
+        "CalibrationCy": "True",
+        "CalibrationK1": "True",
+        "CalibrationK2": "True",
+        "CalibrationK3": "True",
+        "CalibrationK4": "False",
+        "CalibrationB1": "False",
+        "CalibrationB2": "False",
+        "CalibrationP1": "True",
+        "CalibrationP2": "True"
     },
     "SplitTile": {
         "TileSize": 20,

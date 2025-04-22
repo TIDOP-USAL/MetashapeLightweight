@@ -160,7 +160,19 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
-*.bak
-examples/
-dataset/
-ignore/
+Installation.ui
+OptimizeAlignment.ui
+Photo.ui
+PointCloud.ui
+Project.ui
+Raster.ui
+SplitTile.ui
+Workflow.ui
+gui/Installation.py
+gui/OptimizeAlignment.py
+gui/Photo.py
+gui/PointCloud.py
+gui/Project.py
+gui/Raster.py
+gui/SplitTile.py
+gui/Workflow.py

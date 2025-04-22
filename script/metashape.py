@@ -37,11 +37,11 @@ class MetashapeTools:
                   "https://s3-eu-west-1.amazonaws.com/download.agisoft.com/gtg/es_ign_EGM08_REDNAP_Canarias.tif"]
         for url in geoids:
             file = url.split('/')[-1]
-            dst = os.path.join(gt.params.get("InstallRequirement")["Geoid"], file)
+            dst = os.path.join(gt.params.get("Installation")["Geoid"], file)
             if not os.path.exists(dst):
                 gt.update_log('NEEDED ' + dst + '\n' +
                               'Download from ' + url + ' before execute.')
-                os.startfile(gt.params.get("InstallRequirement")["Geoid"])
+                os.startfile(gt.params.get("Installation")["Geoid"])
                 raise SystemExit(0)
             Metashape.CoordinateSystem.addGeoid(dst)
 
@@ -68,7 +68,7 @@ class MetashapeTools:
         # check metashape parameters
         binary = '0b'
         text_gpus = ''
-        selected_gpus = gt.params.get("InstallRequirement")["SelectedGPUs"][0:-1] + ',]'
+        selected_gpus = gt.params.get("Installation")["SelectedGPUs"][0:-1] + ',]'
         selected_gpus = selected_gpus[1:-1].split('},')
         for read_gpu in Metashape.app.enumGPUDevices():
             for i in selected_gpus:
@@ -85,7 +85,7 @@ class MetashapeTools:
             Metashape.app.gpu_mask = 0
         else:
             Metashape.app.gpu_mask = int(binary, 2)
-        Metashape.app.cpu_enable = eval(gt.params.get("InstallRequirement")["UseCPU"])
+        Metashape.app.cpu_enable = eval(gt.params.get("Installation")["UseCPU"])
         gt.update_log(text='Metashape checks:\n' +
                            'Valid license = ' + str(Metashape.license.valid) + '\n' +
                            'Activated license = ' + str(Metashape.app.activated) + '\n' +
@@ -137,10 +137,10 @@ class MetashapeTools:
             raise SystemExit(0)
 
     def check_roi(self):
-        if gt.params.get("ROI")["Method"] == "0":
+        if gt.params.get("Project")["RoiMethod"] == "0":
             return False
-        elif gt.params.get("ROI")["Method"] == "SHP":
-            if os.path.isfile(gt.params.get("ROI")["Path"]) and os.path.exists(gt.params.get("ROI")["Path"]):
+        elif gt.params.get("Project")["RoiMethod"] == "SHP":
+            if os.path.isfile(gt.params.get("Project")["RoiPath"]) and os.path.exists(gt.params.get("Project")["RoiPath"]):
                 return True
             else:
                 gt.update_log('No .shp file with region of interest found.')
@@ -422,7 +422,7 @@ class MetashapeTools:
                                      geom_type=ogr.wkbPolygon,
                                      srs=self.shapes_crs_osgeo)
         polygon = ogr.Geometry(ogr.wkbPolygon)
-        if gt.params.get("ROI")["Method"] == '0':
+        if gt.params.get("Project")["RoiMethod"] == '0':
             geomcol = ogr.Geometry(ogr.wkbGeometryCollection)
             corners = [self.T.mulp(self.chunk.region.center + self.chunk.region.rot * Metashape.Vector([
                 self.chunk.region.size[0] * ((i & 1) - 0.5),
@@ -435,7 +435,7 @@ class MetashapeTools:
                 point = ogr.CreateGeometryFromWkt(wkt)
                 geomcol.AddGeometry(point)
             polygon = geomcol.ConvexHull()
-        elif gt.params.get("ROI")["Method"] == 'SHP':
+        elif gt.params.get("Project")["RoiMethod"] == 'SHP':
             ring = ogr.Geometry(ogr.wkbLinearRing)
             for shape in self.chunk.shapes:
                 if shape.group.label == 'ROI_layer':
@@ -452,19 +452,19 @@ class MetashapeTools:
     def export_dems(self, label='Merged Chunk'):
         self.set_chunk(label)
         label_dem = gt.params.get("SplitTile")["MergedDEM"]
-        if float(gt.params.get("Project")["DemGSD"]) > 0:
+        if float(gt.params.get("Raster")["DemGSD"]) > 0:
             self.chunk.exportRaster(
                 path=os.path.join(gt.output_path,
                                   gt.label + '_' + label_dem.lower() + '_' + str(
-                                      int(float(gt.params.get("Project")["DemGSD"]) * 1000)) + 'mm.tif'),
+                                      int(float(gt.params.get("Raster")["DemGSD"]) * 1000)) + 'mm.tif'),
                 source_data=Metashape.ElevationData,
-                resolution=float(gt.params.get("Project")["DemGSD"]),
+                resolution=float(gt.params.get("Raster")["DemGSD"]),
                 image_compression=self.image_compression,
                 clip_to_boundary=True,
                 save_alpha=True,
             )
             gt.update_log(
-                'Exported full ' + label_dem + ':\nGSD = ' + str(gt.params.get("Project")["DemGSD"]) + ' m')
+                'Exported full ' + label_dem + ':\nGSD = ' + str(gt.params.get("Raster")["DemGSD"]) + ' m')
         else:
             self.chunk.elevation = self.chunk.elevations[0]
             resolution = round(self.chunk.elevation.resolution, ndigits=3)
@@ -481,19 +481,19 @@ class MetashapeTools:
 
     def export_orthomosaic(self, label='Merged Chunk'):
         self.set_chunk(label)
-        if float(gt.params.get("Project")["DemGSD"]) > 0:
+        if float(gt.params.get("Raster")["DemGSD"]) > 0:
             self.chunk.exportRaster(
                 path=os.path.join(gt.output_path,
                                   gt.label + '_orthomosaic_' + str(
-                                      int(float(gt.params.get("Project")["DemGSD"]) * 1000)) + 'mm.tif'),
+                                      int(float(gt.params.get("Raster")["DemGSD"]) * 1000)) + 'mm.tif'),
                 source_data=Metashape.OrthomosaicData,
-                resolution=float(gt.params.get("Project")["DemGSD"]),
+                resolution=float(gt.params.get("Raster")["DemGSD"]),
                 image_compression=self.image_compression,
                 clip_to_boundary=True,
                 save_alpha=True,
             )
             gt.update_log(
-                'Exported full orthomosaic:\nGSD = ' + str(gt.params.get("Project")["DemGSD"]) + ' m')
+                'Exported full orthomosaic:\nGSD = ' + str(gt.params.get("Raster")["DemGSD"]) + ' m')
         else:
             self.chunk.elevation = self.chunk.elevations[0]
             resolution = round(self.chunk.elevation.resolution, ndigits=3)
@@ -511,7 +511,7 @@ class MetashapeTools:
     def export_pointcloud(self, label='Merged Chunk'):
         self.set_chunk(label)
         self.chunk.exportPointCloud(
-            path=os.path.join(gt.output_path, gt.label + '_point_cloud.las'),
+            path=os.path.join(gt.output_path, gt.label + '_point_cloud.laz'),
             source_data=Metashape.PointCloudData,
             crs=self.project_crs,
             clip_to_boundary=True,
@@ -619,18 +619,26 @@ class MetashapeTools:
         self.set_crs_definition()
         self.doc.save()
         params = {
-            "f": "F", "cx": "Cx", "cy": "Cy",
-            "k1": "K1", "k2": "K2", "k3": "K3", "k4": "K4",
-            "p1": "P1", "p2": "P2",
-            "b1": "B1", "b2": "B2"
+            "CalibrationF": "F",
+            "CalibrationCx": "Cx",
+            "CalibrationCy": "Cy",
+            "CalibrationK1": "K1",
+            "CalibrationK2": "K2",
+            "CalibrationK3": "K3",
+            "CalibrationK4": "K4",
+            "CalibrationP1": "P1",
+            "CalibrationP2": "P2",
+            "CalibrationB1": "B1",
+            "CalibrationB2": "B2"
         }
         fixed_params = []
         unfixed_params = []
-        for key, value in gt.params.get("CameraCalibration").items():
-            if value == "True":
-                unfixed_params.append(params[key])
-            else:
-                fixed_params.append(params[key])
+        for key, value in gt.params.get("OptimizeAlignment").items():
+            if "Calibration" in key:
+                if value == "True":
+                    unfixed_params.append(params[key])
+                else:
+                    fixed_params.append(params[key])
         sensor = self.chunk.sensors[0]
         sensor.fixed = True
         sensor.fixed_params = fixed_params
@@ -657,7 +665,7 @@ class MetashapeTools:
             group.show_labels = True
             self.doc.save()
             driver = ogr.GetDriverByName('ESRI Shapefile')
-            src_ds = driver.Open(gt.params.get("ROI")["Path"], 1)
+            src_ds = driver.Open(gt.params.get("Project")["RoiPath"], 1)
             src_lyr = src_ds.GetLayer()
             for feature in src_lyr:
                 roi = feature.GetGeometryRef()
@@ -675,7 +683,7 @@ class MetashapeTools:
                 shape.label = 'ROI'
                 shape.boundary_type = Metashape.Shape.BoundaryType.OuterBoundary
             self.doc.save()
-            gt.update_log('Imported region of interest =\n' + gt.params.get("ROI")["Path"])
+            gt.update_log('Imported region of interest =\n' + gt.params.get("Project")["RoiPath"])
 
     def import_tile_grid(self, label=gt.label):
         self.set_chunk(label)
@@ -754,7 +762,7 @@ class MetashapeTools:
     def merge_dems(self):
         psxs = gt.read_chunks()
         for label_dem in ["DSM", "DTM"]:
-            gsd = int(float(gt.params.get("Project")["DemGSD"])*1000)
+            gsd = int(float(gt.params.get("Raster")["DemGSD"])*1000)
             dst_path = os.path.join(gt.output_path,
                                     gt.label + '_' + label_dem.lower() + '_' + str(gsd) + 'mm.tif')
             files = [os.path.join(gt.output_path,
@@ -770,7 +778,7 @@ class MetashapeTools:
 
     def merge_orthomosaic(self):
         psxs = gt.read_chunks()
-        gsd = int(float(gt.params.get("Project")["OrthoGSD"])*1000)
+        gsd = int(float(gt.params.get("Raster")["OrthoGSD"])*1000)
         dst_path = os.path.join(gt.output_path,
                                 gt.label + '_orthomosaic_' + str(gsd) + 'mm.tif')
         files = [os.path.join(gt.output_path,
@@ -791,7 +799,7 @@ class MetashapeTools:
         dic_rows = {}
         n = 0
         for psx in psxs:
-            src_path = os.path.join(gt.output_path, psx + '_point_cloud.las')
+            src_path = os.path.join(gt.output_path, psx + '_point_cloud.laz')
             src_las = laspy.read(src_path)
             row = psx.split('_')[0]
             points = len(src_las.points)
@@ -801,7 +809,7 @@ class MetashapeTools:
                 dic_rows[row] = previous + points
             except:
                 dic_rows[row] = points
-            src_path = os.path.join(gt.output_path, psx + '_point_cloud.las')
+            src_path = os.path.join(gt.output_path, psx + '_point_cloud.laz')
             src_las = laspy.read(src_path)
             src_offset = src_las.header.offset
             tmp_offset[0] = min(tmp_offset[0], src_offset[0])
@@ -813,7 +821,7 @@ class MetashapeTools:
             dst_las.header.offset = tmp_offset
             dst_las.write(dst_path)
             for psx in psxs:
-                src_path = os.path.join(gt.output_path, psx + '_point_cloud.las')
+                src_path = os.path.join(gt.output_path, psx + '_point_cloud.laz')
                 src_las = laspy.read(src_path)
                 with laspy.open(dst_path, mode='a') as dst_las:
                     with laspy.open(src_path, mode='r') as src_las:
@@ -844,7 +852,7 @@ class MetashapeTools:
                 for psx in psxs:
                     row = psx.split('_')[0]
                     if row in dic_files[file]:
-                        src_path = os.path.join(gt.output_path, psx + '_point_cloud.las')
+                        src_path = os.path.join(gt.output_path, psx + '_point_cloud.laz')
                         src_las = laspy.read(src_path)
                         src_offset = src_las.header.offset
                         tmp_offset[0] = min(tmp_offset[0], src_offset[0])
@@ -856,7 +864,7 @@ class MetashapeTools:
                 for psx in psxs:
                     row = psx.split('_')[0]
                     if row in dic_files[file]:
-                        src_path = os.path.join(gt.output_path, psx + '_point_cloud.las')
+                        src_path = os.path.join(gt.output_path, psx + '_point_cloud.laz')
                         src_las = laspy.read(src_path)
                         with laspy.open(dst_path, mode='a') as dst_las:
                             with laspy.open(src_path, mode='r') as src_las:
@@ -882,18 +890,18 @@ class MetashapeTools:
         self.set_chunk(label)
         self.chunk.optimizeCameras(
             adaptive_fitting=False,
-            fit_b1=eval(gt.params.get("CameraCalibration")["b1"]),
-            fit_b2=eval(gt.params.get("CameraCalibration")["b2"]),
+            fit_b1=eval(gt.params.get("OptimizeAlignment")["CalibrationB1"]),
+            fit_b2=eval(gt.params.get("OptimizeAlignment")["CalibrationB2"]),
             fit_corrections=False,
-            fit_cx=eval(gt.params.get("CameraCalibration")["cx"]),
-            fit_cy=eval(gt.params.get("CameraCalibration")["cy"]),
-            fit_f=eval(gt.params.get("CameraCalibration")["f"]),
-            fit_k1=eval(gt.params.get("CameraCalibration")["k1"]),
-            fit_k2=eval(gt.params.get("CameraCalibration")["k2"]),
-            fit_k3=eval(gt.params.get("CameraCalibration")["k3"]),
-            fit_k4=eval(gt.params.get("CameraCalibration")["k4"]),
-            fit_p1=eval(gt.params.get("CameraCalibration")["p1"]),
-            fit_p2=eval(gt.params.get("CameraCalibration")["p2"]),
+            fit_cx=eval(gt.params.get("OptimizeAlignment")["CalibrationCx"]),
+            fit_cy=eval(gt.params.get("OptimizeAlignment")["CalibrationCy"]),
+            fit_f=eval(gt.params.get("OptimizeAlignment")["CalibrationF"]),
+            fit_k1=eval(gt.params.get("OptimizeAlignment")["CalibrationK1"]),
+            fit_k2=eval(gt.params.get("OptimizeAlignment")["CalibrationK2"]),
+            fit_k3=eval(gt.params.get("OptimizeAlignment")["CalibrationK3"]),
+            fit_k4=eval(gt.params.get("OptimizeAlignment")["CalibrationK4"]),
+            fit_p1=eval(gt.params.get("OptimizeAlignment")["CalibrationP1"]),
+            fit_p2=eval(gt.params.get("OptimizeAlignment")["CalibrationP2"]),
             tiepoint_covariance=False,
         )
         self.doc.save()
@@ -948,18 +956,18 @@ class MetashapeTools:
             self.chunk.buildDem(source_data=Metashape.PointCloudData)
             self.chunk.elevation.label = 'DSM'
             self.doc.save()
-            if float(gt.params.get("Project")["DemGSD"]) > 0:
+            if float(gt.params.get("Raster")["DemGSD"]) > 0:
                 self.chunk.exportRaster(
                     path=os.path.join(gt.output_path,
                                       label + '_dsm_' + str(
-                                          int(float(gt.params.get("Project")["DemGSD"]) * 1000)) + 'mm.tif'),
+                                          int(float(gt.params.get("Raster")["DemGSD"]) * 1000)) + 'mm.tif'),
                     source_data=Metashape.ElevationData,
-                    resolution=float(gt.params.get("Project")["DemGSD"]),
+                    resolution=float(gt.params.get("Raster")["DemGSD"]),
                     image_compression=self.image_compression,
                     clip_to_boundary=True,
                     save_alpha=True,
                 )
-                gt.update_log('Completed DSM for chunk ' + label + ':\nGSD = ' + str(gt.params.get("Project")["DemGSD"]) + ' m')
+                gt.update_log('Completed DSM for chunk ' + label + ':\nGSD = ' + str(gt.params.get("Raster")["DemGSD"]) + ' m')
             else:
                 self.chunk.elevation = self.chunk.elevations[0]
                 resolution = round(self.chunk.elevation.resolution, ndigits=3)
@@ -982,18 +990,18 @@ class MetashapeTools:
             self.chunk.elevation = self.chunk.elevations[1]
             self.chunk.elevation.label = 'DTM'
             self.doc.save()
-            if float(gt.params.get("Project")["DemGSD"]) > 0:
+            if float(gt.params.get("Raster")["DemGSD"]) > 0:
                 self.chunk.exportRaster(
                     path=os.path.join(gt.output_path,
                                       label + '_dtm_' + str(
-                                          int(float(gt.params.get("Project")["DemGSD"]) * 1000)) + 'mm.tif'),
+                                          int(float(gt.params.get("Raster")["DemGSD"]) * 1000)) + 'mm.tif'),
                     source_data=Metashape.ElevationData,
-                    resolution=float(gt.params.get("Project")["DemGSD"]),
+                    resolution=float(gt.params.get("Raster")["DemGSD"]),
                     image_compression=self.image_compression,
                     clip_to_boundary=True,
                     save_alpha=True,
                 )
-                gt.update_log('Completed DTM for chunk ' + label + ':\nGSD = ' + str(gt.params.get("Project")["DemGSD"]) + ' m')
+                gt.update_log('Completed DTM for chunk ' + label + ':\nGSD = ' + str(gt.params.get("Raster")["DemGSD"]) + ' m')
             else:
                 resolution = round(self.chunk.elevation.resolution, ndigits=3)
                 self.chunk.exportRaster(
@@ -1022,18 +1030,18 @@ class MetashapeTools:
                 refine_seamlines=False,
             )
             self.doc.save()
-            if float(gt.params.get("Project")["OrthoGSD"]) > 0:
+            if float(gt.params.get("Raster")["OrthoGSD"]) > 0:
                 self.chunk.exportRaster(
                     path=os.path.join(gt.output_path,
                                       label + '_orthomosaic_' + str(
-                                          int(float(gt.params.get("Project")["OrthoGSD"]) * 1000)) + 'mm.tif'),
+                                          int(float(gt.params.get("Raster")["OrthoGSD"]) * 1000)) + 'mm.tif'),
                     source_data=Metashape.OrthomosaicData,
-                    resolution=float(gt.params.get("Project")["OrthoGSD"]),
+                    resolution=float(gt.params.get("Raster")["OrthoGSD"]),
                     image_compression=self.image_compression,
                     clip_to_boundary=True,
                     save_alpha=True,
                 )
-                gt.update_log('Completed orthomosaic for chunk ' + label + ':\nGSD = ' + str(gt.params.get("Project")["OrthoGSD"]) + ' m')
+                gt.update_log('Completed orthomosaic for chunk ' + label + ':\nGSD = ' + str(gt.params.get("Raster")["OrthoGSD"]) + ' m')
             else:
                 resolution = round(self.chunk.orthomosaic.resolution, ndigits=3)
                 self.chunk.exportRaster(
@@ -1124,7 +1132,7 @@ class MetashapeTools:
                 )
                 self.doc.save()
                 self.chunk.exportPointCloud(
-                    path=os.path.join(gt.output_path, label + '_point_cloud.las'),
+                    path=os.path.join(gt.output_path, label + '_point_cloud.laz'),
                     source_data=Metashape.PointCloudData,
                     crs=self.project_crs,
                     # clip_to_boundary=True,

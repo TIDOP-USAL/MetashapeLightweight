@@ -1,21 +1,36 @@
-1. [Metashape Lightweight](#metashape-lightweight)
-1. [Advertencias generales de uso](#advertencias-generales-de-uso)
+# Metashape Lightweight
+
+1. [Qué es Metashape Lightweight](#qué-es-metashape-lightweight)
 1. [Instalación](#instalacion)
 1. [Datos de ejemplo](#datos-de-ejemplo)
 1. [Instrucciones de uso y ejecución](#instrucciones-de-uso-y-ejecución)
+   1. [Workflow](#parámetros-workflowflujo-de-trabajo)
+   1. [Installarion](#parámetros-installationrequisitos-de-instalación)
+   1. [Project](#parámetros-projectproyecto)
+   1. [SplitTile](#parámetros-splittiledivisión-en-celdas)
+   1. [Photo](#parámetros-photoimágenes)
+   1. [OptimizeAlignment](#parámetros-optimizealigmentorientación)
+   1. [PointCloud](#parámetros-pointcloudnube-de-puntos)
+   1. [Raster](#parámetros-rasterproductos-ráster)
 
 # Qué es **Metashape Lightweight**
 
 Esta herramienta utiliza la API de Agisoft Metashape para procesar vuelos fotogramétricos con cámaras no métricas.
 Las utilidades permiten procesar:
-- con bajos requisitos de hardware,
-- de forma semiautomática, lo más desatendida posible.
+* con bajos requisitos de hardware,
+* de forma semiautomática, lo más desatendida posible.
 
-# Advertencias generales de uso
+Los productos resultantes pueden ser:
+* Nube de puntos densa, en formato `.laz`
+* Modelos digitales de elevaciones, en formato `.tif`
+* Ortomosaico, en formato `.tif`
+* Informe de resultados generado por Metashape, en formato `.pdf`
 
-* La carpeta de resultados será borrada en cada ejecución.
-* No se permiten caracteres especiales en la definición de los parámetros de entrada.
-* EPSG permitidos: 25830, 25830+5782, 4326, 4326+3855, 4258+5782, 4083+9397, 4081+9397.
+Además, se exportan durante el procesamiento:
+* `*_log.txt` Archivo de texto con histórico de eventos y mensajes relevantes sobre el proceso.
+* `*.psz` y `*.files` Proyecto de Metashape completo, o de cada tile (si se hubiera dividido el trabajo).
+* `*_initial.psz` y `*_initial.files` Proyecto de Metashape en un estadio previo a la optimización de parámetros de orientación interna (si se hubiera ejecutado tal calibración).
+* `*_shapes.gpkg` Geometrías utilizadas, región de interés y tiles (si los hubiera).
 
 # Instalación
 
@@ -63,25 +78,49 @@ Los procesos de testeo propuestos utilizan los parámetros:
 
 # Instrucciones de uso y ejecución
 
+Algunas advertencias generales de uso son:
+* No se permiten caracteres especiales en la definición de los parámetros de entrada.
+* EPSG permitidos: 25830, 25830+5782, 4326, 4326+3855, 4258+5782, 4083+9397, 4081+9397.
+
+Los pasos para utilizar el programa son:
+1. Haber terminado la instalación y la activación de la licencia como se indica en el apartado [Instalación](#instalación)
 1. Adaptar las rutas de instalación en el archivo `MetashapeLightweight.bat` 
 1. Ejecutar el archivo `MetashapeLightweight.bat`
 
-## Parámetros `Workflow`
+## Parámetros `Workflow`|`Flujo de trabajo`
 
 Estos parámetros describen los pasos que se van a ejecutar.
 
-## Parámetros `InstallRequirement`
+Es importante resaltar que:
+* La carpeta de resultados será borrada en cada ejecución si se activa el paso `CleanPrevious`|``
+
+## Parámetros `Installation`|`Requisitos de instalación`
 
 Estos parámetros describen las condiciones de hardware e instalación que se van a utilizar.
 
 Es importante resaltar que:
 * El procesamiento con CPU debe ser activado si ninguna GPU es seleccionada.
 
-## Parámetros `Project`
+## Parámetros `Project`|`Proyecto`
 
 Estos parámetros describen el proyecto y los resultados que se van a alcanzar.
 
-## Parámetros `Photo`
+Es importante resaltar que:
+* El archivo a importar como **región de interés**, debe:
+  * Tener formato SHP
+  * Ser de tipo = `Polygon`
+  * Contener una sola entidad
+  * Tener CRS = EPSG:4326
+
+## Parámetros `SplitTile`|`División en celdas`
+
+Estos parámetros describen las condiciones en las que se van a dividir las partes del trabajo fraccionado.
+
+Es importante resaltar que:
+* Para utilizar **una malla vectorial en archivo GPKG** el archivo debe haber sido creado previamente por este programa.
+* En la edición manual de la capa solo está permitida la modificación del campo `ignore`.
+
+## Parámetros `Photo`|`Imágenes`
 
 Estos parámetros describen las condiciones de importación y proceso de las imágenes utilizadas.
 
@@ -99,18 +138,7 @@ Es importante resaltar que:
     * Campos: `label,east,north,altitude`
     * Unidades: según EPSG
 
-## Parámetros `ROI`
-
-Estos parámetros describen la región de interés con la que se va a recortar el trabajo ejecutado.
-
-Es importante resaltar que:
-* El archivo a importar como **región de interés**, debe:
-  * Tener formato SHP
-  * Ser de tipo = `Polygon`
-  * Contener una sola entidad
-  * Tener CRS = EPSG:4326
-
-## Parámetros `OptimizeAligment`
+## Parámetros `OptimizeAligment`|`Orientación`
 
 Estos parámetros describen las condiciones en las que se va a ejecutar la optimización de la calibración de los parámtros de orientación interna de la cámara.
 
@@ -131,25 +159,15 @@ En importante resaltar que:
   * Cada punto debe estar fotointerpretado en al menos 3 imágenes.
   * Para mejorar la visualización de imágenes térmicas, ir a Tools / Set Brightness... / Estimate.
   * No se debe modificar ningún otro parámetro o configuración del proyecto.
-  
-## Parámetros `CameraCalibration`
-
-Estos parámetros describen los parámetros de orientación interna de la cámara que se van a considerar.
-
-Es importante resaltar que:
 * Los parámetros de orientación interna que no se calibren se mantendrán fijos tras la importación.
 
-## Parámetros `PointCloud`
+## Parámetros `PointCloud`|`Nube de puntos`
 
 Estos parámetros describen las condiciones con las que se va a generar la nube densa del trabajo.
 
 Es importante resaltar que:
 * Para generar la nube densa, es necesario que el trabajo esté georreferenciado, es decir, que o bien las imágenes tengan orientaciones externas de partida, y/o se hayan utilizado puntos de apoyo para hacer calibrar la orientación interna de la cámara.
 
-## Parámetros `SplitTile`
+## Parámetros `Raster`|`Productos ráster`
 
-Estos parámetros describen las condiciones en las que se van a dividir las partes del trabajo fracionado.
-
-Es importante resaltar que:
-* Para utilizar **una malla vectorial en archivo GPKG** el archivo debe haber sido creado previamente por este programa.
-* En la edición manual de la capa sólo está permitida la modificación del campo `ignore`.
+Estos parámetros describen las condiciones con las que se va a generar los productos ráster, es decir, modelo digital de superficies, del terreno y ortomosaico.
