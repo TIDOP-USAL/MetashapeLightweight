@@ -23,8 +23,8 @@ def main():
         Tools.error_msg(str_error)
         return
 
-    from MshBigPsxDialog import MshBigPsxDialog
-    dialog = MshBigPsxDialog(settings,
+    from MetashapeDialog import MetashapeDialog
+    dialog = MetashapeDialog(settings,
                              parametersManager)
     if not dialog.initialize():
         exit()

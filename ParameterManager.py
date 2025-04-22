@@ -417,10 +417,14 @@ class ParametersManager:
                 str_error = ParametersManager.__name__ + "." + self.from_json_file.__name__
                 str_error += ("\nClass: {} not in JSON file: {}".format(class_name, definitions_file))
                 return str_error
-            if ((class_name != 'Project' and class_name != 'Workflow' and class_name != 'Photo'
-                    and class_name != 'Roi' and class_name != 'CameraCalibration')
-                    and class_name != "OptimizeAlignment" and class_name != "SplitTile"
-                    and class_name != "PointCloud") and class_name != "InstallRequirement":
+            if (class_name != 'Project'
+                    and class_name != 'Workflow'
+                    and class_name != 'Photo'
+                    and class_name != "OptimizeAlignment"
+                    and class_name != "SplitTile"
+                    and class_name != "PointCloud"
+                    and class_name != "Raster"
+                    and class_name != "Installation"):
                 continue
             # class_is_valid = False
             # for gui_class in gui_defines.GUI_CLASSES:
@@ -430,7 +434,9 @@ class ParametersManager:
             # if not class_is_valid:
             #     continue
             # debug
-            if class_name ==  "SplitTile":
+            if class_name == "Photo":
+                yo = 1
+            elif class_name == "Raster":
                 yo = 1
             # debug
             json_class_content = json_content[class_name]

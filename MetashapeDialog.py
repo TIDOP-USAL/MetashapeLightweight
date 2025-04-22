@@ -9,12 +9,11 @@ from PyQt5.QtWidgets import (QApplication, QMessageBox, QDialog, QFileDialog, QP
                              QComboBox, QTableWidget, QTableWidgetItem)
 from PyQt5.QtCore import QDir, QFileInfo, QFile, Qt
 from gui.VPyFormGenerator.VPyGUIGenerator import VPyGUIGenerator
-from gui.CameraCalibration import CameraCalibration
-from gui.InstallRequirement import InstallRequirement
+from gui.Installation import Installation
 from gui.Photo import Photo
 from gui.PointCloud import PointCloud
 from gui.Project import Project
-from gui.Roi import ROI
+from gui.Raster import Raster
 from gui.Workflow import Workflow
 from gui.OptimizeAlignment import OptimizeAlignment
 from gui.SplitTile import SplitTile
@@ -25,15 +24,16 @@ import shutil
 import subprocess
 from script.lib_metashape import *
 
-class MshBigPsxDialog(QDialog):
+class MetashapeDialog(QDialog):
     """Employee dialog."""
 
     def __init__(self,
+
                  settings,
                  parametersManager,
                  parent=None):
         super().__init__(parent)
-        loadUi("MshBigPsxDialog.ui", self)
+        loadUi("MetashapeDialog.ui", self)
         self.settings = settings
         self.parametersManager = parametersManager
 
@@ -259,14 +259,14 @@ class MshBigPsxDialog(QDialog):
         str_error = ""
         current_dir = QDir.current()
         if not os.path.isfile(project_file):
-            str_error = MshBigPsxDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
+            str_error = MetashapeDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
             str_error += ("\nNot exists file: {}".format(project_file))
             return str_error
         f = open(project_file)
         try:
             json_content = json.load(f)
         except:
-            str_error = MshBigPsxDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
+            str_error = MetashapeDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
             str_error += ("\nInvalid JSON file: {}".format(project_file))
             f.close()
             return str_error
@@ -282,7 +282,7 @@ class MshBigPsxDialog(QDialog):
                         class_in_json_file_by_gui_class[class_name] = class_in_json
         for class_name in gui_classes:
             if not class_name in class_in_json_file_by_gui_class:
-                str_error = MshBigPsxDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
+                str_error = MetashapeDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
                 str_error += ("\nClass: {} not in JSON file: {}".format(class_name, project_file))
                 return str_error
             class_name_json = class_in_json_file_by_gui_class[class_name]
@@ -292,7 +292,7 @@ class MshBigPsxDialog(QDialog):
             values = {}
             for attributes_in_definitions in attributes_tag:
                 if not attributes_in_definitions in json_class_content:
-                    str_error = MshBigPsxDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
+                    str_error = MetashapeDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
                     str_error += ("\nAttribute: {} not in class: {} not in JSON file: {}"
                                   .format(attributes_in_definitions, class_name, project_file))
                     return str_error
@@ -304,12 +304,12 @@ class MshBigPsxDialog(QDialog):
                         elif value.lower() == 'false':
                             value = False
                         else:
-                            str_error = MshBigPsxDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
+                            str_error = MetashapeDialog.__name__ + "." + self.loadProjectFromJSonFile.__name__
                             str_error += ("\nAttribute: {} in class: {} in JSON file: {} invalid boolean: {}"
                                           .format(attributes_in_definitions, class_name, project_file, value))
                             return str_error
                 values[attributes_in_definitions] = value
-            if class_name == gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT:
+            if class_name == gui_defines.OBJECT_CLASS_INSTALLATION:
                 # conda_path = values[gui_defines.REQUIREMENTS_CONDA_PATH_TAG]
                 # if conda_path:
                 #     conda_path = os.path.normpath(conda_path)
@@ -358,20 +358,18 @@ class MshBigPsxDialog(QDialog):
         for class_name in gui_defines.GUI_CLASSES:
             self.object_by_name[class_name] = None
             self.object_dlg_by_name[class_name] = None
-            if class_name == gui_defines.OBJECT_CLASS_CAMERA_CALIBRATION:
-                self.object_by_name[class_name] = CameraCalibration()
-            elif class_name == gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT:
-                self.object_by_name[class_name] = InstallRequirement()
+            if class_name == gui_defines.OBJECT_CLASS_INSTALLATION:
+                self.object_by_name[class_name] = Installation()
             elif class_name == gui_defines.OBJECT_CLASS_PHOTO:
                 self.object_by_name[class_name] = Photo()
             elif class_name == gui_defines.OBJECT_CLASS_POINT_CLOUD:
                 self.object_by_name[class_name] = PointCloud()
+            elif class_name == gui_defines.OBJECT_CLASS_RASTER:
+                self.object_by_name[class_name] = Raster()
             elif class_name == gui_defines.OBJECT_CLASS_PROJECT:
                 self.object_by_name[class_name] = Project()
             elif class_name == gui_defines.OBJECT_CLASS_WORKFLOW:
                 self.object_by_name[class_name] = Workflow()
-            elif class_name == gui_defines.OBJECT_CLASS_ROI:
-                self.object_by_name[class_name] = ROI()
             elif class_name == gui_defines.OBJECT_CLASS_OPTIMIZE_ALIGNMENT:
                 self.object_by_name[class_name] = OptimizeAlignment()
             elif class_name == gui_defines.OBJECT_CLASS_SPLIT_TILE:
@@ -386,7 +384,7 @@ class MshBigPsxDialog(QDialog):
             object_title = self.object_by_name[class_name].get_text()
             obj_push_button = QPushButton(object_title)
             self.objectsGridLayout.addWidget(obj_push_button, row_in_grid_layout, column_in_grid_layout)
-            if class_name == "SplitTile":
+            if class_name == "ROI":
                 yo = 1
             obj_dlg = VPyGUIGenerator.create_gui(self.object_by_name[class_name])
             obj_dlg.setWindowTitle(object_title)
@@ -574,13 +572,13 @@ class MshBigPsxDialog(QDialog):
         #     msgBox.setText("Select one GPU at least")
         #     msgBox.exec_()
         #     return
-        inst_req_values = self.object_by_name[gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT].get_values_as_dictionary()
+        inst_req_values = self.object_by_name[gui_defines.OBJECT_CLASS_INSTALLATION].get_values_as_dictionary()
         if self.cpuCheckBox.isChecked():
             inst_req_values[gui_defines.INSTALL_REQUERIMENTS_OBJECT_USE_CPU_TAG] =True
         else:
             inst_req_values[gui_defines.INSTALL_REQUERIMENTS_OBJECT_USE_CPU_TAG] =False
         inst_req_values[gui_defines.INSTALL_REQUERIMENTS_OBJECT_SELECTED_GPUS_TAG] = selected_gpus_as_string
-        self.object_by_name[gui_defines.OBJECT_CLASS_INSTALL_REQUIREMENT].set_values_from_dictionary(inst_req_values)
+        self.object_by_name[gui_defines.OBJECT_CLASS_INSTALLATION].set_values_from_dictionary(inst_req_values)
         self.processPushButton.setEnabled(False)
         output_file = self.projectLineEdit.text()
         if not output_file:

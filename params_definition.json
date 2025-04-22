@@ -157,37 +157,39 @@
 			"type": "folder",
 			"default": ""
 		},
-		"DemGSD": {
-			"text":{
-				"spanish": "GSD para MDT y MDS en metros",
-				"english": "GSD for DTM and DSM in meters"
+		"RoiMethod": {
+			"text": {
+				"spanish": "Fuente ROI",
+				"english": "ROI source"
 			},
 			"definition": {
-				"spanish": "Resolucion en metros con la que se exportaran el modelo digital de superficies y del terreno (0 para maxima posible)",
-				"english": "Resolution in metres at which the digital surface and terrain model will be exported (0 for maximum possible)."
+				"spanish": "Metodo de definicion de la ROI",
+				"english": "Method for ROI definition"
 			},
-			"type": "real",
-			"decimals": 3,
-			"minimum": 0.0,
-			"maximum": 2.00,
-			"singleStep": 0.01,
-			"default": 0.05
+			"type": "values",
+			"values": {
+				"FULL": {
+					"spanish": "Region total con recubrimiento",
+					"english": "Full stereoscopic region"
+				},
+				"SHP": {
+					"spanish": "Importada de shapefile",
+					"english": "From shapefile"
+				}
+			},
+			"default": "Region total con recubrimiento"
 		},
-		"OrthoGSD": {
-			"text":{
-				"spanish": "GSD para ortomosaico en metros",
-				"english": "GSD for Orthomosaic in meters"
+		"RoiPath": {
+			"text": {
+				"spanish": "Ruta ROI",
+				"english": "ROI path"
 			},
 			"definition": {
-				"spanish": "Resolucion en metros con la que se exportara el ortomosaico (0 para maxima posible)",
-				"english": "Resolution in metres at which the orthomosaic will be exported (0 for maximum possible)"
+				"spanish": "Ruta del archivo de la ROI",
+				"english": "ROI path file"
 			},
-			"type": "real",
-			"decimals": 3,
-			"minimum": 0.0,
-			"maximum": 2.00,
-			"singleStep": 0.01,
-			"default": 0.05
+			"type": "file open",
+			"default": ""
 		}
 	},
 	"Photo": {
@@ -289,184 +291,6 @@
 			},
 			"type": "file open",
 			"default": ""
-		}
-	},
-	"ROI": {
-		"text":{
-			"spanish": "Region de interes",
-			"english": "Region of interest"
-		},
-		"Path": {
-			"text": {
-				"spanish": "Ruta ROI",
-				"english": "ROI path"
-			},
-			"definition": {
-				"spanish": "Ruta del archivo de la ROI",
-				"english": "ROI path file"
-			},
-			"type": "file open",
-			"default": ""
-		},
-		"Method": {
-			"text": {
-				"spanish": "Fuente ROI",
-				"english": "ROI source"
-			},
-			"definition": {
-				"spanish": "Metodo de definicion de la ROI",
-				"english": "Method for ROI definition"
-			},
-			"type": "values",
-			"values": {
-				"FULL": {
-					"spanish": "Region total con recubrimiento",
-					"english": "Full stereoscopic region"
-				},
-				"SHP": {
-					"spanish": "Importada de shapefile",
-					"english": "From shapefile"
-				}
-			},
-			"default": "Region total con recubrimiento"
-		}
-	},
-	"CameraCalibration": {
-		"text": {
-			"spanish": "Calibracion de camara",
-			"english": "Camera calibration"
-		},
-		"f": {
-			"text":{
-				"spanish": "Focal",
-				"english": "Focal"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra la focal",
-				"english": "Select calibrate focal"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"cx": {
-			"text":{
-				"spanish": "X PPA",
-				"english": "X PPA"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra la coordenada X del PPA",
-				"english": "Select calibrate PPA X coordinate"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"cy": {
-			"text":{
-				"spanish": "Y PPA",
-				"english": "Y PPA"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra la coordenada Y del PPA",
-				"english": "Select calibrate PPA Y coordinate"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"k1": {
-			"text":{
-				"spanish": "k1",
-				"english": "k1"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra k1 de distorsion radial",
-				"english": "Select calibrate k1 radial distortion"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"k2": {
-			"text":{
-				"spanish": "k2",
-				"english": "k2"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra k2 de distorsion radial",
-				"english": "Select calibrate k2 radial distortion"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"k3": {
-			"text":{
-				"spanish": "k3",
-				"english": "k3"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra k3 de distorsion radial",
-				"english": "Select calibrate k3 radial distortion"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"k4": {
-			"text":{
-				"spanish": "k4",
-				"english": "k4"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra k4 de distorsion radial",
-				"english": "Select calibrate k4 radial distortion"
-			},
-			"type": "boolean",
-			"default": "False"
-		},
-		"b1": {
-			"text":{
-				"spanish": "Afinidad",
-				"english": "Affinity"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra la relacion de aspecto",
-				"english": "Select calibrate aspect ratio"
-			},
-			"type": "boolean",
-			"default": "False"
-		},
-		"b2": {
-			"text":{
-				"spanish": "Asimetria",
-				"english": "Skew"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra la asimetria",
-				"english": "Select calibrate skew"
-			},
-			"type": "boolean",
-			"default": "False"
-		},
-		"p1": {
-			"text":{
-				"spanish": "p1",
-				"english": "p1"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra p1 de distorsion tangencial",
-				"english": "Select calibrate p1 tangential distortion"
-			},
-			"type": "boolean",
-			"default": "True"
-		},
-		"p2": {
-			"text":{
-				"spanish": "p2",
-				"english": "p2"
-			},
-			"definition": {
-				"spanish": "Seleccionar si se calibra p2 de distorsion tangencial",
-				"english": "Select calibrate p2 tangential distortion"
-			},
-			"type": "boolean",
-			"default": "True"
 		}
 	},
 	"OptimizeAlignment": {
@@ -600,6 +424,138 @@
 			"maximum": 100000,
 			"singleStep": 1000,
 			"default": 4000
+		},
+		"f": {
+			"text":{
+				"spanish": "Focal",
+				"english": "Focal"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra la focal",
+				"english": "Select calibrate focal"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"cx": {
+			"text":{
+				"spanish": "X PPA",
+				"english": "X PPA"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra la coordenada X del PPA",
+				"english": "Select calibrate PPA X coordinate"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"cy": {
+			"text":{
+				"spanish": "Y PPA",
+				"english": "Y PPA"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra la coordenada Y del PPA",
+				"english": "Select calibrate PPA Y coordinate"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"k1": {
+			"text":{
+				"spanish": "k1",
+				"english": "k1"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra k1 de distorsion radial",
+				"english": "Select calibrate k1 radial distortion"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"k2": {
+			"text":{
+				"spanish": "k2",
+				"english": "k2"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra k2 de distorsion radial",
+				"english": "Select calibrate k2 radial distortion"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"k3": {
+			"text":{
+				"spanish": "k3",
+				"english": "k3"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra k3 de distorsion radial",
+				"english": "Select calibrate k3 radial distortion"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"k4": {
+			"text":{
+				"spanish": "k4",
+				"english": "k4"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra k4 de distorsion radial",
+				"english": "Select calibrate k4 radial distortion"
+			},
+			"type": "boolean",
+			"default": "False"
+		},
+		"b1": {
+			"text":{
+				"spanish": "Afinidad",
+				"english": "Affinity"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra la relacion de aspecto",
+				"english": "Select calibrate aspect ratio"
+			},
+			"type": "boolean",
+			"default": "False"
+		},
+		"b2": {
+			"text":{
+				"spanish": "Asimetria",
+				"english": "Skew"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra la asimetria",
+				"english": "Select calibrate skew"
+			},
+			"type": "boolean",
+			"default": "False"
+		},
+		"p1": {
+			"text":{
+				"spanish": "p1",
+				"english": "p1"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra p1 de distorsion tangencial",
+				"english": "Select calibrate p1 tangential distortion"
+			},
+			"type": "boolean",
+			"default": "True"
+		},
+		"p2": {
+			"text":{
+				"spanish": "p2",
+				"english": "p2"
+			},
+			"definition": {
+				"spanish": "Seleccionar si se calibra p2 de distorsion tangencial",
+				"english": "Select calibrate p2 tangential distortion"
+			},
+			"type": "boolean",
+			"default": "True"
 		}
 	},
 	"SplitTile": {
@@ -929,7 +885,45 @@
 			"default": 0
 		}
 	},
-	"InstallRequirement": {
+	"Raster": {
+		"text": {
+			"spanish": "Productos raster",
+			"english": "Raster products"
+		},
+		"DemGSD": {
+			"text":{
+				"spanish": "GSD para MDT y MDS en metros",
+				"english": "GSD for DTM and DSM in meters"
+			},
+			"definition": {
+				"spanish": "Resolucion en metros con la que se exportaran el modelo digital de superficies y del terreno (0 para maxima posible)",
+				"english": "Resolution in metres at which the digital surface and terrain model will be exported (0 for maximum possible)."
+			},
+			"type": "real",
+			"decimals": 3,
+			"minimum": 0.0,
+			"maximum": 2.00,
+			"singleStep": 0.01,
+			"default": 0.05
+		},
+		"OrthoGSD": {
+			"text":{
+				"spanish": "GSD para ortomosaico en metros",
+				"english": "GSD for Orthomosaic in meters"
+			},
+			"definition": {
+				"spanish": "Resolucion en metros con la que se exportara el ortomosaico (0 para maxima posible)",
+				"english": "Resolution in metres at which the orthomosaic will be exported (0 for maximum possible)"
+			},
+			"type": "real",
+			"decimals": 3,
+			"minimum": 0.0,
+			"maximum": 2.00,
+			"singleStep": 0.01,
+			"default": 0.05
+		}
+	},
+	"Installation": {
 		"text":{
 			"spanish": "Requisitos de instalacion",
 			"english": "Install requirements"

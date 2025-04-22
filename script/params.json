@@ -1,35 +1,37 @@
 {
     "Project": {
-        "Label": "sample_test",
+        "Label": "test01",
         "EPSG": "25830",
-        "Path": "D://MetashapeLightweightProjects",
-        "DemGSD": 0.1,
-        "OrthoGSD": 0.1
+        "Path": "D:/output",
+        "RoiMethod": "0",
+        "RoiPath": ""
     },
     "Workflow": {
         "CleanPrevious": "True",
         "Initialize": "True",
         "Preprocess": "True",
-        "Optimize": "True",
-        "Split": "True",
+        "Optimize": "False",
+        "Split": "False",
         "PointCloud": "True",
         "DEMs": "True",
         "Orthomosaic": "True",
         "Report": "True"
     },
     "Photo": {
-        "Path": "..//sample_data//rail2024",
+        "Path": "C:/dev/MetashapeLightweight/sample_data/rail2024",
         "LocationAccuracy2D": 0.08,
         "LocationAccuracyHeight": 0.12,
         "Method": "EXIF",
         "EPSG": "4326",
-        "EoPath": "..//sample_data//rail2024//eo_4326.csv"
+        "EoPath": ""
     },
-    "ROI": {
-        "Path": "..//sample_data//rail2024//roi_4326.shp",
-        "Method": "SHP"
-    },
-    "CameraCalibration": {
+    "OptimizeAlignment": {
+        "Method": "PSX",
+        "EPSG": "",
+        "Path": "",
+        "Accuracy": "Low",
+        "ReferencePreselection": "Source",
+        "TiePointLimit": 10000,
         "f": "True",
         "cx": "True",
         "cy": "True",
@@ -42,23 +44,15 @@
         "p1": "True",
         "p2": "True"
     },
-    "OptimizeAlignment": {
-        "Method": "PSX",
-        "EPSG": "25830+5782",
-        "Path": "..//sample_data//rail2024//gcp_25830-5782.csv",
-        "Accuracy": "Low",
-        "ReferencePreselection": "Source",
-        "TiePointLimit": 10000
-    },
     "SplitTile": {
-        "TileSize": 10,
+        "TileSize": 20,
         "TileSizeBuffer": 10,
-        "Method": "MANUAL",
-        "Path": "..//sample_data//rail2024//tile_grid_manual.gpkg",
+        "Method": "AUTO",
+        "Path": "",
         "MergeMethod": "OsgeoLaspy",
-        "MergePointClouds": "True",
-        "MergeElevations": "True",
-        "MergeOrthomosaics": "True",
+        "MergePointClouds": "False",
+        "MergeElevations": "False",
+        "MergeOrthomosaics": "False",
         "MergedDEM": "DSM"
     },
     "PointCloud": {
@@ -72,9 +66,13 @@
         "GroundCellSize": 5,
         "GroundErosionRadius": 0
     },
-    "InstallRequirement": {
+    "Raster": {
+        "DemGSD": 0.1,
+        "OrthoGSD": 0.1
+    },
+    "Installation": {
         "Geoid": "C:/Program Files/Agisoft/Metashape Pro/geoids",
-        "SelectedGPUs": "",
+        "SelectedGPUs": "[]",
         "UseCPU": "False"
     }
 }
