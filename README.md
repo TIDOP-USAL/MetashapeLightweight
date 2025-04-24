@@ -68,13 +68,15 @@ Contenido:
 
 Los procesos de testeo propuestos utilizan los parámetros:
 
-| FILE          | LABEL  | EO   | IO    | ROI  | Split |
-|---------------|--------|------|-------|------|-------|
-| params01.json | test01 | EXIF | False | FULL | False |
-| params02.json | test02 | CSV  | False | FULL | False |
-| params03.json | test03 | EXIF | False | SHP  | False |
-| params04.json | test04 | EXIF | PSX   | SHP  | False |
-| params05.json | test05 | EXIF | XML   | SHP  | False |
+| FILE          | LABEL  | EO   | IO    | ROI  | Split           |
+|---------------|--------|------|-------|------|-----------------|
+| params01.json | test01 | EXIF | False | FULL | False           |
+| params02.json | test02 | CSV  | False | FULL | False           |
+| params03.json | test03 | EXIF | False | SHP  | False           |
+| params04.json | test04 | EXIF | PSX   | SHP  | False           |
+| params05.json | test05 | EXIF | XML   | SHP  | False           |
+| params06.json | test06 | EXIF | XML   | FULL | AUTO OsgeoLaspy |
+| params07.json | test07 | EXIF | XML   | SHP  | AUTO OsgeoLaspy |
 
 # Instrucciones de uso y ejecución
 
@@ -83,9 +85,11 @@ Algunas advertencias generales de uso son:
 * EPSG permitidos: 25830, 25830+5782, 4326, 4326+3855, 4258+5782, 4083+9397, 4081+9397.
 
 Los pasos para utilizar el programa son:
-1. Haber terminado la instalación y la activación de la licencia como se indica en el apartado [Instalación](#instalación)
-1. Adaptar las rutas de instalación en el archivo `MetashapeLightweight.bat` 
-1. Ejecutar el archivo `MetashapeLightweight.bat`
+1. Haber terminado la instalación y la activación de la licencia como se indica en el apartado [Instalación](#instalación).
+1. Adaptar las rutas de instalación en el archivo `MetashapeLightweight.bat`. 
+1. Ejecutar el archivo `MetashapeLightweight.bat`.
+1. Revisar todos los parámetros con ayuda de una plantilla.
+1. Elegir una ruta para el archivo de parámetros elegidos y procesar.
 
 ## Parámetros `Workflow`|`Flujo de trabajo`
 
